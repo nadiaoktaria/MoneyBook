@@ -50,8 +50,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatable_
-                    " class="display table table-striped table-hover" >
+                    <table id="datatable_pengeluaran" class="display table table-striped table-hover" >
                         <thead>
                             <tr>
                                 <th>Name</th>

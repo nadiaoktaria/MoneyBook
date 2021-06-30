@@ -11,11 +11,19 @@ class Dashboard extends CI_Controller {
         $this->load->view('footer.php');
 	}
 
-	public function kategori(){    
-		$data_title['title'] = 'Kategori'; 
+	public function kategori_pemasukan(){    
+		$data_title['title'] = 'Kategori Pemasukan'; 
 		
 		$this->load->view('header.php', $data_title);
-        $this->load->view('dashboard/kategori.php');
+        $this->load->view('dashboard/kategori_pemasukan.php');
+        $this->load->view('footer.php');
+	}
+
+	public function kategori_pengeluaran(){    
+		$data_title['title'] = 'Kategori Pengeluaran'; 
+		
+		$this->load->view('header.php', $data_title);
+        $this->load->view('dashboard/kategori_pengeluaran.php');
         $this->load->view('footer.php');
 	}
 

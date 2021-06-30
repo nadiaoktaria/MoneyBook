@@ -13,7 +13,6 @@
 		},
 	});
 
-	// tambahin datatable disini
 	$("#datatable_pengeluaran").DataTable({
 		aLengthMenu: [
 			[10, 30, 50, -1],

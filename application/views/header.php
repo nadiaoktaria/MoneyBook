@@ -56,14 +56,14 @@
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
-									<img src="<?= base_url() ?>assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+									<img src="<?= base_url() ?>assets/img/profile.png" alt="..." class="avatar-img rounded-circle">
 								</div>
 							</a>
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
 										<div class="user-box">
-											<div class="avatar-lg"><img src="<?= base_url() ?>assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+											<div class="avatar-lg"><img src="<?= base_url() ?>assets/img/profile.png" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4>Hizrian</h4>
 												<p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
@@ -72,7 +72,7 @@
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Logout</a>
+										<a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a>
 									</li>
 								</div>
 							</ul>
@@ -94,44 +94,68 @@
 							</span>
 							<h4 class="text-section">MENU</h4>
 						</li>
-						<li  <?=$this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? 'class="nav-item active"' : 'class="nav-item"' ?>>
+						<li  <?=$this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? 'class="nav-item active"' : 'class="nav-item" ' ?>>
 							<a href="<?= base_url('dashboard') ?>">
 								<i class="fas fa-home"></i>
 								<p>Dashboard</p>
 							</a>
 						</li>
-						<li <?=$this->uri->segment(1) == 'kategori' ? 'class="nav-item active"' : 'class="nav-item"  ' ?>>
-							<a href="<?= base_url('kategori') ?>">
+						<li <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
+							<a data-toggle="collapse" href="#transaksi">
+								<i class="fas fa-file-signature"></i>
+								<p>Transaksi</p>
+								<span class="caret"></span>
+							</a>
+							<div id="transaksi" <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="collapse show"' : 'class="collapse"' ?>>
+								<ul class="nav nav-collapse">
+									<li <?=$this->uri->segment(1) == 'pemasukan' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('pemasukan') ?>">
+											<span class="sub-item">Pemasukan</span>
+										</a>
+									</li>
+									<li <?=$this->uri->segment(1) == 'pengeluaran' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('pengeluaran') ?>">
+											<span class="sub-item">Pengeluaran</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li <?=$this->uri->segment(1) == 'kategori_pemasukan' || $this->uri->segment(1) == 'kategori_pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
+							<a data-toggle="collapse" href="#kategori">
 								<i class="fas fa-layer-group"></i>
 								<p>Kategori</p>
+								<span class="caret"></span>
 							</a>
+							<div id="kategori" <?=$this->uri->segment(1) == 'kategori_pemasukan' || $this->uri->segment(1) == 'kategori_pengeluaran'  ? 'class="collapse show"' : 'class="collapse"' ?>>
+								<ul class="nav nav-collapse">
+									<li <?=$this->uri->segment(1) == 'kategori_pemasukan' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('kategori_pemasukan') ?>">
+											<span class="sub-item">Pemasukan</span>
+										</a>
+									</li>
+									<li <?=$this->uri->segment(1) == 'kategori_pengeluaran' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('kategori_pengeluaran') ?>">
+											<span class="sub-item">Pengeluaran</span>
+										</a>
+									</li>
+								</ul>
+							</div>
 						</li>
-						<li <?=$this->uri->segment(1) == 'pemasukan' ? 'class="nav-item active"' : 'class="nav-item"  ' ?>>
-							<a href="<?= base_url('pemasukan') ?>">
-								<i class="fas fa-file-signature"></i>
-								<p>Pemasukan</p>
-							</a>
-						</li>
-						<li <?=$this->uri->segment(1) == 'pengeluaran' ? 'class="nav-item active"' : 'class="nav-item"  ' ?>>
-							<a href="<?= base_url('pengeluaran') ?>">
-								<i class="fas fa-copy"></i>
-								<p>Pengeluaran</p>
-							</a>
-						</li>
-						<li <?=$this->uri->segment(1) == 'data_karyawan'|| $this->uri->segment(1) == 'gaji_karyawan'  ? 'class="nav-item active"' : 'class="nav-item"  ' ?>>
-							<a data-toggle="collapse" href="#base">
+						<li <?=$this->uri->segment(1) == 'data_karyawan' || $this->uri->segment(1) == 'gaji_karyawan'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
+							<a data-toggle="collapse" href="#karyawan">
 								<i class="fas fa-users"></i>
 								<p>Gaji Karyawan</p>
 								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="base">
+							<div id="karyawan" <?=$this->uri->segment(1) == 'data_karyawan' || $this->uri->segment(1) == 'gaji_karyawan'  ? 'class="collapse show"' : 'class="collapse"' ?>>
 								<ul class="nav nav-collapse">
-									<li>
+									<li <?=$this->uri->segment(1) == 'data_karyawan' ? 'class="active"' : '' ?>>
 										<a href="<?= base_url('data_karyawan') ?>">
 											<span class="sub-item">Karyawan</span>
 										</a>
 									</li>
-									<li>
+									<li <?=$this->uri->segment(1) == 'gaji_karyawan' ? 'class="active"' : '' ?>>
 										<a href="<?= base_url('gaji_karyawan') ?>">
 											<span class="sub-item">Penggajian</span>
 										</a>
