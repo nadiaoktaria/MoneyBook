@@ -17,48 +17,48 @@
 					<div class="brand">
 						<img src="<?= base_url() ?>assets/img/icon.svg" alt="logo">
 					</div>
-					<div class="card fat">
+					<div class="card fat mb-5">
 						<div class="card-body">
 							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="">
+							<?php if ($this->session->flashdata('success')) { ?>
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<?= $this->session->flashdata('success') ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							<?php } elseif ($this->session->flashdata('error')) { ?>
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<?= $this->session->flashdata('error') ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							<?php } ?>
+							<form id="register" method="POST" class="my-login-validation" action="<?= base_url('register') ?>">
 								<div class="form-group">
-									<label for="name">Name</label>
-									<input id="name" type="text" class="form-control" name="name" required autofocus>
-									<div class="invalid-feedback">
-										What's your name?
-									</div>
+									<label for="nama">Nama</label>
+									<input id="nama" type="text" class="form-control" name="nama" required>
 								</div>
 
 								<div class="form-group">
 									<label for="email">E-Mail </label>
 									<input id="email" type="email" class="form-control" name="email" required>
-									<div class="invalid-feedback">
-										Your email is invalid
-									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="password">Password</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
-									<div class="invalid-feedback">
-										Password is required
-									</div>
 								</div>
 
                                 <div class="form-group">
 									<label for="no_hp">Nomer Handphone </label>
 									<input id="no_hp" type="no_hp" class="form-control" name="no_hp" required>
-									<div class="invalid-feedback">
-										Your email is invalid
-									</div>
 								</div>
 
                                 <div class="form-group">
 									<label for="alamat">Alamat </label>
 									<input id="alamat" type="alamat" class="form-control" name="alamat" required>
-									<div class="invalid-feedback">
-										Your email is invalid
-									</div>
 								</div>
 
 								<div class="form-group mt-4">

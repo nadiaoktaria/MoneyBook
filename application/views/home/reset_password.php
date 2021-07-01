@@ -12,7 +12,7 @@
 <body class="my-login-page">
 	<section class="h-100">
 		<div class="container h-100">
-			<div class="row justify-content-md-center align-items-center h-100">
+			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
 						<img src="<?= base_url() ?>assets/img/icon.svg" alt="logo">
@@ -27,9 +27,11 @@
 									<div class="invalid-feedback">
 										Password is required
 									</div>
-									<div class="form-text text-muted">
-										Pastikan password baru anda kuat dan mudah di ingat!
-									</div>
+									<center>
+										<div class="form-text text-muted">
+											Pastikan password baru anda kuat dan mudah di ingat!
+										</div>
+									</center>
 								</div>
 
 								<div class="form-group mt-4">
@@ -38,7 +40,7 @@
 									</button>
 								</div>
                                 <div class="text-center">
-									 <a href="">Kembali ke Beranda</a>
+									 <a href="<?= base_url('beranda') ?>">Kembali ke Beranda</a>
 								</div>
 							</form>
 						</div>

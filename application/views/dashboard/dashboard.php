@@ -1,9 +1,16 @@
 <div class="panel-header">
     <div class="page-inner py-4">
+        <div class="alert alert-warning" role="alert">                   
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            Selamat Datang <?= $pengguna['email']; ?>
+        </div>
         <h2 class="pb-3 fw-bold">Dashboard</h2>
         <div class="progress ht-1 mb-5" style="height: 4px;">
             <div class="progress-bar" role="progressbar" style="width: 5%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
+        
     </div>
 </div>
 

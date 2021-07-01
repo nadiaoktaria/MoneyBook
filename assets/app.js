@@ -1,4 +1,5 @@
 (function ($) {
+
 	$("#datatable_pemasukan").DataTable({
 		aLengthMenu: [
 			[10, 30, 50, -1],

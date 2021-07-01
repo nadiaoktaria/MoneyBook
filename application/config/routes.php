@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 // URL
 $route['dashboard'] = 'dashboard/index';
+$route['profile'] = 'dashboard/profile';
 $route['kategori_pemasukan'] = 'dashboard/kategori_pemasukan';
 $route['kategori_pengeluaran'] = 'dashboard/kategori_pengeluaran';
 $route['pemasukan'] = 'dashboard/pemasukan';

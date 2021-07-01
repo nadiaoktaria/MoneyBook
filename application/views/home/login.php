@@ -20,13 +20,25 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Login</h4>
+							<?php if ($this->session->flashdata('success')) { ?>
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<?= $this->session->flashdata('success') ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							<?php } elseif ($this->session->flashdata('error')) { ?>
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<?= $this->session->flashdata('error') ?>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							<?php } ?>
 							<form id="login" method="POST" class="my-login-validation" action="<?= base_url('home') ?>">
 								<div class="form-group">
 									<label for="email">E-Mail </label>
-									<input id="email" type="email" class="form-control" name="email" value=""  required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<input id="email" type="email" class="form-control" name="email" value=""  required>
 								</div>
 
 								<div class="form-group">
@@ -36,9 +48,6 @@
 										</a>
 									</label>
 									<input id="password" type="password" class="form-control" name="password"  required data-eye>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
 								</div>
 
 								<div class="form-group mt-4">
@@ -50,7 +59,7 @@
 									Belum memiliki akun? <a href="<?= base_url('register') ?>">Register</a>
 								</div>
                                 <div class="text-center">
-									 <a href="">Kembali ke Beranda</a>
+									 <a href="<?= base_url('beranda') ?>">Kembali ke Beranda</a>
 								</div>
 							</form>
 						</div>
