@@ -35,7 +35,7 @@
 									</button>
 								</div>
 							<?php } ?>
-							<form id="register" method="POST" class="my-login-validation" action="<?= base_url('register') ?>">
+							<form id="register" class="my-login-validation" method="POST" action="<?= base_url('register') ?>">
 								<div class="form-group">
 									<label for="nama">Nama</label>
 									<input id="nama" type="text" class="form-control" name="nama" required>

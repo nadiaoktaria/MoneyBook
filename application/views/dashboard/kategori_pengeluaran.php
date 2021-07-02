@@ -8,7 +8,7 @@
 </div>
 
 <div class="page-inner mt--5">
-    <form id="from_add_pendapatan" novalidate="novalidate" enctype="multipart/form-data" accept-charset="utf-8">
+<form id="tambah_kategori_pemasukan" method="POST" action="<?= base_url('dashboard/tambah_kategori_pengeluaran') ?>" enctype="multipart/form-data" accept-charset="utf-8">
         <div class="row mt--2">
             <div class="col-xl-5">
                 <div class="card">
@@ -17,13 +17,13 @@
                     </div>
                     <div class="card-body">
                         <div class ="chart-dashboardx ">		
-                            <div class="form-group">
+                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Kode : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="" id="" placeholder="Masukan Kode">
+                                <input type="text" class="form-control" name="kode" id="kode" placeholder="Masukan Kode" value="" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Kategori : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="" id="" placeholder="Masukan Catatan">
+                                <input type="text" class="form-control" name="nama_kategori" id="nama_kategori" placeholder="Masukan Catatan" value="" required>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="" class="display table table-striped table-hover" >
+                            <table id="tabel_kategori_pengeluaran" class="display table table-striped table-hover" >
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
@@ -48,22 +48,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>001</td>
-                                        <td>Gaji Bulanan</td>
-                                        <td>
-                                            <a class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                            <a class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>002</td>
-                                        <td>Instruktur</td>
-                                        <td>
-                                            <a class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                            <a class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

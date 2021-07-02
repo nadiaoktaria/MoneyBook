@@ -43,15 +43,43 @@ class Dashboard extends CI_Controller {
 		$this->session->set_flashdata('success', 'disimpan');
 		redirect('profile');
 	}
+	
+	// CRUD Pemasukan
 
 	public function kategori_pemasukan(){    
 		$data_title['title'] = 'Kategori Pemasukan'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
+
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/kategori_pemasukan.php');
         $this->load->view('footer.php');
 	}
+
+	public function get_kategori_pemasukan(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$data = $this->m_dashboard->kategori_pemasukan_get($pengguna['id_pengguna']);
+		echo json_encode($data);
+	}
+
+	public function tambah_kategori_pemasukan(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$data = [
+			'id_pengguna' => $pengguna['id_pengguna'],
+			'kode' => $this->input->post('kode'),
+			'nama_kategori' => $this->input->post('nama_kategori'),
+		];
+
+		$this->m_dashboard->kategori_pemasukan_post($data);
+		$this->session->set_flashdata('success', 'disimpan');
+		redirect('kategori_pemasukan');
+	}
+
+	public function hapus_kategori_pemasukan($id_kategori_pemasukan){
+		$this->m_dashboard->kategori_pemasukan_delete($id_kategori_pemasukan);
+		redirect('kategori_pemasukan');
+	}
+
+	// CRUD Pengeluaran
 
 	public function kategori_pengeluaran(){    
 		$data_title['title'] = 'Kategori Pengeluaran'; 
@@ -60,6 +88,30 @@ class Dashboard extends CI_Controller {
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/kategori_pengeluaran.php');
         $this->load->view('footer.php');
+	}
+
+	public function get_kategori_pengeluaran(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$data = $this->m_dashboard->kategori_pengeluaran_get($pengguna['id_pengguna']);
+		echo json_encode($data);
+	}
+
+	public function tambah_kategori_pengeluaran(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$data = [
+			'id_pengguna' => $pengguna['id_pengguna'],
+			'kode' => $this->input->post('kode'),
+			'nama_kategori' => $this->input->post('nama_kategori'),
+		];
+
+		$this->m_dashboard->kategori_pengeluaran_post($data);
+		$this->session->set_flashdata('success', 'disimpan');
+		redirect('kategori_pengeluaran');
+	}
+
+	public function hapus_kategori_pengeluaran($id_kategori_pengeluaran){
+		$this->m_dashboard->kategori_pengeluaran_delete($id_kategori_pengeluaran);
+		redirect('kategori_pengeluaran');
 	}
 
 	public function pemasukan(){        
