@@ -48,6 +48,10 @@
 	<script src="<?= base_url() ?>assets/js/atlantis.min.js"></script>
 
 	<script src="<?= base_url() ?>assets/app.js"></script>
+	<script src="<?= base_url() ?>assets/kategori_pemasukan.js"></script>
+	<script src="<?= base_url() ?>assets/kategori_pengeluaran.js"></script>
+	<script src="<?= base_url() ?>assets/transaksi_pemasukan.js"></script>
+	<script src="<?= base_url() ?>assets/transaksi_pengeluaran.js"></script>
 
 
 

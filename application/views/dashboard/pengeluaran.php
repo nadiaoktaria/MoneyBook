@@ -8,7 +8,7 @@
 </div>
 
 <div class="page-inner mt--5">
-    <form id="from_add_pendapatan" novalidate="novalidate" enctype="multipart/form-data" accept-charset="utf-8">
+    <form id="form_add_pengeluaran" method="POST" enctype="multipart/form-data" accept-charset="utf-8">   
         <div class="row mt--2">
             <div class="col-xl-6">
                 <div class="card">
@@ -17,25 +17,28 @@
                     </div>
                     <div class="card-body">
                         <div class ="chart-dashboardx ">
-                            <div class="form-group">
+                        <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Kategori : <span class="text-danger">*</span> </label>
-                                <select class="form-control" name="" id="" >
+                                <select class="form-control" name="kategori" id="kategori" >
                                 <option value="">Pilih Kategori</option>
-                                    <option value=""></option>
+                                <?php foreach ($kategori as $list) { ?>
+                                    <option value="<?= $list->id_kategori_pengeluaran ?>"><?= $list->nama_kategori ?></option>
+                                <?php } ?>
                                 </select>
                             </div>				
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nominal : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="" id="" placeholder="0">
+                                <input type="text" class="form-control" name="nominal" id="nominal" placeholder="0">
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Catatan : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="" id="" placeholder="Masukan Catatan">
+                                <input type="text" class="form-control" name="catatan" id="catatan" placeholder="Masukan Catatan">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="btn btn-primary" type="submit"  id="" value="Tambah">
+                        <input class="btn btn-primary" type="hidden" name="edit_transPengeluaran" id="edit_trans_pengeluaran" value="Edit" readonly>
+                        <input class="btn btn-primary" type="text" name="add_transPengeluaran" id="add_trans_pengeluaran" value="Tambah" readonly>
                     </div>
                 </div>
             </div>
@@ -50,34 +53,19 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatable_pengeluaran" class="display table table-striped table-hover" >
+                <table id="datatable_pengeluaran" class="display table table-striped table-hover" >
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Nominal</th>
+                                <th>Keterangan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

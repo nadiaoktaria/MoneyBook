@@ -100,27 +100,6 @@
 								<p>Dashboard</p>
 							</a>
 						</li>
-						<li <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
-							<a data-toggle="collapse" href="#transaksi">
-								<i class="fas fa-file-signature"></i>
-								<p>Transaksi</p>
-								<span class="caret"></span>
-							</a>
-							<div id="transaksi" <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="collapse show"' : 'class="collapse"' ?>>
-								<ul class="nav nav-collapse">
-									<li <?=$this->uri->segment(1) == 'pemasukan' ? 'class="active"' : '' ?>>
-										<a href="<?= base_url('pemasukan') ?>">
-											<span class="sub-item">Pemasukan</span>
-										</a>
-									</li>
-									<li <?=$this->uri->segment(1) == 'pengeluaran' ? 'class="active"' : '' ?>>
-										<a href="<?= base_url('pengeluaran') ?>">
-											<span class="sub-item">Pengeluaran</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
 						<li <?=$this->uri->segment(1) == 'kategori_pemasukan' || $this->uri->segment(1) == 'kategori_pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
 							<a data-toggle="collapse" href="#kategori">
 								<i class="fas fa-layer-group"></i>
@@ -136,6 +115,27 @@
 									</li>
 									<li <?=$this->uri->segment(1) == 'kategori_pengeluaran' ? 'class="active"' : '' ?>>
 										<a href="<?= base_url('kategori_pengeluaran') ?>">
+											<span class="sub-item">Pengeluaran</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
+							<a data-toggle="collapse" href="#transaksi">
+								<i class="fas fa-file-signature"></i>
+								<p>Transaksi</p>
+								<span class="caret"></span>
+							</a>
+							<div id="transaksi" <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="collapse show"' : 'class="collapse"' ?>>
+								<ul class="nav nav-collapse">
+									<li <?=$this->uri->segment(1) == 'pemasukan' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('pemasukan') ?>">
+											<span class="sub-item">Pemasukan</span>
+										</a>
+									</li>
+									<li <?=$this->uri->segment(1) == 'pengeluaran' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('pengeluaran') ?>">
 											<span class="sub-item">Pengeluaran</span>
 										</a>
 									</li>

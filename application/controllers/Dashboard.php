@@ -44,7 +44,7 @@ class Dashboard extends CI_Controller {
 		redirect('profile');
 	}
 	
-	// CRUD Pemasukan
+	// CRUD Kategori Pemasukan
 
 	public function kategori_pemasukan(){    
 		$data_title['title'] = 'Kategori Pemasukan'; 
@@ -62,20 +62,23 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function tambah_kategori_pemasukan(){
-		$pengguna =  $this->m_dashboard->get_data_pengguna();
-		$data = [
-			'id_pengguna' => $pengguna['id_pengguna'],
-			'kode' => $this->input->post('kode'),
-			'nama_kategori' => $this->input->post('nama_kategori'),
-		];
+		if(!empty($_POST['kode']) && !empty($_POST['nama'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
 
-		$this->m_dashboard->kategori_pemasukan_post($data);
-		$this->session->set_flashdata('success', 'Kategori Pemasukan Berhasil di Tambahkan!');
-		redirect('kategori_pemasukan');
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'kode' => $_POST['kode'],
+				'nama_kategori' => $_POST['nama'],
+			];
+
+			$this->m_dashboard->kategori_pemasukan_post($data);
+			echo "success";
+			exit();
+		}
 	}
 
 	public function hapus_kategori_pemasukan(){
-		if(isset($_POST['id']) && !empty($_POST['id'])){
+		if(!empty($_POST['id'])){
 			$this->m_dashboard->kategori_pemasukan_delete($_POST['id']);
 			echo "success";
 			exit();
@@ -83,7 +86,7 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function edit_kategori_pemasukan(){    
-		if(isset($_POST['id']) && !empty($_POST['id'])){
+		if(!empty($_POST['id']) && !empty($_POST['kode']) && !empty($_POST['nama'])){
 			$data = [
 				'kode' => $_POST['kode'],
 				'nama_kategori' => $_POST['nama'],
@@ -94,7 +97,7 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	// CRUD Pengeluaran
+	// CRUD Kategori Pengeluaran
 
 	public function kategori_pengeluaran(){    
 		$data_title['title'] = 'Kategori Pengeluaran'; 
@@ -112,41 +115,189 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function tambah_kategori_pengeluaran(){
-		$pengguna =  $this->m_dashboard->get_data_pengguna();
-		$data = [
-			'id_pengguna' => $pengguna['id_pengguna'],
-			'kode' => $this->input->post('kode'),
-			'nama_kategori' => $this->input->post('nama_kategori'),
-		];
+		if(!empty($_POST['kode']) && !empty($_POST['nama'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
 
-		$this->m_dashboard->kategori_pengeluaran_post($data);
-		$this->session->set_flashdata('success', 'Kategori Pengeluaran Berhasil di Tambahkan!');
-		redirect('kategori_pengeluaran');
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'kode' => $_POST['kode'],
+				'nama_kategori' => $_POST['nama'],
+			];
+
+			$this->m_dashboard->kategori_pengeluaran_post($data);
+			echo "success";
+			exit();
+		}
 	}
 
-	public function hapus_kategori_pengeluaran($id_kategori_pengeluaran){
-		$this->m_dashboard->kategori_pengeluaran_delete($id_kategori_pengeluaran);
-		$this->session->set_flashdata('success', 'Kategori Pengeluaran Berhasil di Hapus!');
-		redirect('kategori_pengeluaran');
+	public function hapus_kategori_pengeluaran(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->kategori_pengeluaran_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
 	}
 
+	public function edit_kategori_pengeluaran(){    
+		if(!empty($_POST['id']) && !empty($_POST['kode']) && !empty($_POST['nama'])){
+			$data = [
+				'kode' => $_POST['kode'],
+				'nama_kategori' => $_POST['nama'],
+			];
+			$this->m_dashboard->kategori_pengeluaran_edit($_POST['id'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	// Transaksi Pemasukan
 	public function pemasukan(){        
 		$data_title['title'] = 'Pemasukan'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
+		$kategori['kategori'] = $this->m_dashboard->kategori_pemasukan_get($profile['pengguna']['id_pengguna']);
+
 		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/pemasukan.php');
+        $this->load->view('dashboard/pemasukan.php',$kategori);
         $this->load->view('footer.php');
 	}
 
-	public function pengeluaran(){ 
-		$data_title['title'] = 'Pengeluaran'; 
+	public function get_transaksi_pemasukan(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$kategori = $this->m_dashboard->transaksi_pemasukan_get($pengguna['id_pengguna']);
+
+		$data = [];
+		$no = 0;
+		foreach ($kategori as $list) {
+			$no++;
+			$row = [];
+			$row['No'] = $no;
+			$row['Tanggal'] = $list->tanggal;
+			$row['Kategori'] = $list->nama_kategori;
+			$row['Nominal'] = $list->nominal;
+			$row['Keterangan'] = $list->keterangan;
+			$row['Aksi'] = $list->id_pemasukan;
+			$row['id_kategori'] = $list->id_kategori_pemasukan;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function tambah_tansaksi_pemasukan(){
+		if(!empty($_POST['id_kategori']) && !empty($_POST['nominal']) && !empty($_POST['catatan'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'id_kategori_pemasukan' => $_POST['id_kategori'],
+				'nominal' => $_POST['nominal'],
+				'keterangan' => $_POST['catatan'],
+			];
+
+			$this->m_dashboard->transaksi_pemasukan_post($data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_transaksi_pemasukan(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->transaksi_pemasukan_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function edit_transaksi_pemasukan(){    
+		if(!empty($_POST['id_pemasukan']) && !empty($_POST['id_kategori']) && !empty($_POST['nominal']) && !empty($_POST['catatan'])){
+			$data = [
+				'id_kategori_pemasukan' => $_POST['id_kategori'],
+				'nominal' => $_POST['nominal'],
+				'keterangan' => $_POST['catatan'],
+			];
+			$this->m_dashboard->transaksi_pemasukan_edit($_POST['id_pemasukan'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	//---------------
+
+	// Transaksi Pengeluaran
+	public function pengeluaran(){        
+		$data_title['title'] = 'pengeluaran'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
+		$kategori['kategori'] = $this->m_dashboard->kategori_pengeluaran_get($profile['pengguna']['id_pengguna']);
+
 		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/pengeluaran.php');
+        $this->load->view('dashboard/pengeluaran.php',$kategori);
         $this->load->view('footer.php');
 	}
+
+	public function get_transaksi_pengeluaran(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$kategori = $this->m_dashboard->transaksi_pengeluaran_get($pengguna['id_pengguna']);
+
+		$data = [];
+		$no = 0;
+		foreach ($kategori as $list) {
+			$no++;
+			$row = [];
+			$row['No'] = $no;
+			$row['Tanggal'] = $list->tanggal;
+			$row['Kategori'] = $list->nama_kategori;
+			$row['Nominal'] = $list->nominal;
+			$row['Keterangan'] = $list->keterangan;
+			$row['Aksi'] = $list->id_pengeluaran;
+			$row['id_kategori'] = $list->id_kategori_pengeluaran;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function tambah_tansaksi_pengeluaran(){
+		if(!empty($_POST['id_kategori']) && !empty($_POST['nominal']) && !empty($_POST['catatan'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'id_kategori_pengeluaran' => $_POST['id_kategori'],
+				'nominal' => $_POST['nominal'],
+				'keterangan' => $_POST['catatan'],
+			];
+
+			$this->m_dashboard->transaksi_pengeluaran_post($data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_transaksi_pengeluaran(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->transaksi_pengeluaran_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function edit_transaksi_pengeluaran(){    
+		if(!empty($_POST['id_pengeluaran']) && !empty($_POST['id_kategori']) && !empty($_POST['nominal']) && !empty($_POST['catatan'])){
+			$data = [
+				'id_kategori_pengeluaran' => $_POST['id_kategori'],
+				'nominal' => $_POST['nominal'],
+				'keterangan' => $_POST['catatan'],
+			];
+			$this->m_dashboard->transaksi_pengeluaran_edit($_POST['id_pengeluaran'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
 
 	public function gaji_karyawan(){  
 		$data_title['title'] = 'Gaji Karyawan'; 

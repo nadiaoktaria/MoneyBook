@@ -8,7 +8,7 @@
 </div>
 
 <div class="page-inner mt--5">
-<form id="tambah_kategori_pemasukan" method="POST" action="<?= base_url('dashboard/tambah_kategori_pengeluaran') ?>" enctype="multipart/form-data" accept-charset="utf-8">
+<form id="tambah_kategori_pengeluaran" method="POST" enctype="multipart/form-data" accept-charset="utf-8"> 
         <div class="row mt--2">
             <div class="col-xl-5">
                 <div class="card">
@@ -28,7 +28,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="btn btn-primary" type="submit"  id="" value="Tambah">
+                        <input class="btn btn-primary" type="hidden" name="edit_katPengeluaran" id="edit_kategori_pengeluaran" value="Edit" readonly>
+                        <input class="btn btn-primary" type="text" name="add_katPengeluaran" id="add_kategori_pengeluaran" value="Tambah" readonly>
                     </div>
                 </div>
             </div>

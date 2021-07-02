@@ -28,7 +28,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="btn btn-primary" name="btn_add" id="tambah_edit_kaetgori_pemasukan" value="Tambah" readonly>
+                        <input class="btn btn-primary" type="hidden" name="edit_katPemasukan" id="edit_kategori_pemasukan" value="Edit" readonly>
+                        <input class="btn btn-primary" type="text" name="add_katPemasukan" id="add_kategori_pemasukan" value="Tambah" readonly>
                     </div>
                 </div>
             </div>
