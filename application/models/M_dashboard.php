@@ -13,6 +13,10 @@ class M_dashboard extends CI_Model {
     public function kategori_pemasukan_post($data){
 		$this->db->insert('kategori_pemasukan', $data);
 	}
+    
+    public function get_kategori_pemasukan_byId($id){
+        return $this->db->get_where('kategori_pemasukan', ['id_kategori_pemasukan' => $id])->row_array();
+    }
 
     public function kategori_pemasukan_get($id_pengguna){
         return $this->db->get_where('kategori_pemasukan', ['id_pengguna' => $id_pengguna])->result();
@@ -22,6 +26,10 @@ class M_dashboard extends CI_Model {
         return $this->db->delete('kategori_pemasukan', array('id_kategori_pemasukan' => $id_kategori_pemasukan)); 
     }
     
+    public function kategori_pemasukan_edit($id,$data){
+        $this->db->where('id_kategori_pemasukan', $id)->update('kategori_pemasukan', $data); 
+    } 
+
     public function kategori_pengeluaran_post($data){
 		$this->db->insert('kategori_pengeluaran', $data);
 	}

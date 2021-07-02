@@ -40,7 +40,7 @@ class Dashboard extends CI_Controller {
 		];
 
 		$this->m_dashboard->update_profil($pengguna['id_pengguna'],$data);
-		$this->session->set_flashdata('success', 'disimpan');
+		$this->session->set_flashdata('success', 'Profile Berhasil Disimpan!');
 		redirect('profile');
 	}
 	
@@ -48,7 +48,7 @@ class Dashboard extends CI_Controller {
 
 	public function kategori_pemasukan(){    
 		$data_title['title'] = 'Kategori Pemasukan'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
 
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/kategori_pemasukan.php');
@@ -70,20 +70,35 @@ class Dashboard extends CI_Controller {
 		];
 
 		$this->m_dashboard->kategori_pemasukan_post($data);
-		$this->session->set_flashdata('success', 'disimpan');
+		$this->session->set_flashdata('success', 'Kategori Pemasukan Berhasil di Tambahkan!');
 		redirect('kategori_pemasukan');
 	}
 
-	public function hapus_kategori_pemasukan($id_kategori_pemasukan){
-		$this->m_dashboard->kategori_pemasukan_delete($id_kategori_pemasukan);
-		redirect('kategori_pemasukan');
+	public function hapus_kategori_pemasukan(){
+		if(isset($_POST['id']) && !empty($_POST['id'])){
+			$this->m_dashboard->kategori_pemasukan_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function edit_kategori_pemasukan(){    
+		if(isset($_POST['id']) && !empty($_POST['id'])){
+			$data = [
+				'kode' => $_POST['kode'],
+				'nama_kategori' => $_POST['nama'],
+			];
+			$this->m_dashboard->kategori_pemasukan_edit($_POST['id'],$data);
+			echo "success";
+			exit();
+		}
 	}
 
 	// CRUD Pengeluaran
 
 	public function kategori_pengeluaran(){    
 		$data_title['title'] = 'Kategori Pengeluaran'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
 		
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/kategori_pengeluaran.php');
@@ -105,12 +120,13 @@ class Dashboard extends CI_Controller {
 		];
 
 		$this->m_dashboard->kategori_pengeluaran_post($data);
-		$this->session->set_flashdata('success', 'disimpan');
+		$this->session->set_flashdata('success', 'Kategori Pengeluaran Berhasil di Tambahkan!');
 		redirect('kategori_pengeluaran');
 	}
 
 	public function hapus_kategori_pengeluaran($id_kategori_pengeluaran){
 		$this->m_dashboard->kategori_pengeluaran_delete($id_kategori_pengeluaran);
+		$this->session->set_flashdata('success', 'Kategori Pengeluaran Berhasil di Hapus!');
 		redirect('kategori_pengeluaran');
 	}
 

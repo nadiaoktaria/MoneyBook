@@ -22,7 +22,6 @@
 	<!-- jQuery Scrollbar -->
 	<script src="<?= base_url() ?>assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-
 	<!-- Chart JS -->
 	<script src="<?= base_url() ?>assets/js/plugin/chart.js/chart.min.js"></script>
 
@@ -50,5 +49,22 @@
 
 	<script src="<?= base_url() ?>assets/app.js"></script>
 
+
+
+	<?php if ($this->session->flashdata('success')) { ?>
+    	<script>  
+			swal("Success", "<?= $this->session->flashdata('success')?>", {
+				icon : "success",
+				buttons: {        			
+					confirm: {
+						className : 'btn btn-success'
+					}
+				},
+			});   
+		</script>
+	<?php } ?>
+
+	
 </body>
 </html>
+
