@@ -5,28 +5,32 @@
 		dataType: "json",
 		success: function (data) {
 			var html = "";
-			for (var i = 0; i < data.length; i++) {
-				html +=
-					"<tr>" +
-					'<td id="kode" >' +
-					data[i].kode +
-					"</td>" +
-					'<td id="nama_kategori" >' +
-					data[i].nama_kategori +
-					"</td>" +
-					"<td>" +
-					'<a data-nama="' +
-					data[i].nama_kategori +
-					'" data-kode="' +
-					data[i].kode +
-					'" data-id="' +
-					data[i].id_kategori_pengeluaran +
-					'" id="EditKategori_pengeluaran" class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>' +
-					'<a data-id="' +
-					data[i].id_kategori_pengeluaran +
-					'" id="hapus_kategori_pengeluaran" class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>' +
-					"</td>" +
-					"</tr>";
+			if(data.length < 1){
+				html = '<tr><td colspan="3" style="text-align:center">Belum ada kategori pengeluaran!</td></tr>';
+			}else {
+				for (var i = 0; i < data.length; i++) {
+					html +=
+						"<tr>" +
+						'<td>' +
+						data[i].kode +
+						"</td>" +
+						'<td>' +
+						data[i].nama_kategori +
+						"</td>" +
+						"<td>" +
+						'<a data-nama="' +
+						data[i].nama_kategori +
+						'" data-kode="' +
+						data[i].kode +
+						'" data-id="' +
+						data[i].id_kategori_pengeluaran +
+						'" id="EditKategori_pengeluaran" class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>' +
+						'<a data-id="' +
+						data[i].id_kategori_pengeluaran +
+						'" id="hapus_kategori_pengeluaran" class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>' +
+						"</td>" +
+						"</tr>";
+				}
 			}
 			$("#tabel_kategori_pengeluaran tbody").html(html);
 		},

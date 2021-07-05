@@ -93,5 +93,24 @@ class M_dashboard extends CI_Model {
     public function transaksi_pengeluaran_edit($id,$data){
         $this->db->where('id_pengeluaran', $id)->update('pengeluaran', $data); 
     } 
+
+    
+    public function total_pemasukan($id){
+        $query = $this->db->select('sum(nominal) as total_pemasukan')
+            ->from('pemasukan')
+            ->where('id_pengguna',$id)
+            ->get()->row_array();
+        
+        return $query;
+    }
+    
+    public function total_pengeluaran($id){
+        $query = $this->db->select('sum(nominal) as total_pengeluaran')
+            ->from('pengeluaran')
+            ->where('id_pengguna',$id)
+            ->get()->row_array();
+        
+        return $query;
+    }
     
 }

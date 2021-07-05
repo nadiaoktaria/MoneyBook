@@ -13,7 +13,7 @@
 		language: {
 			search: '<i class="fa fa-search"></i>',
 			searchPlaceholder: "search",
-			emptyTable: "Tidak ada history pengeluaran!",
+			emptyTable: "Belum ada history pengeluaran!",
 		},
 		columns: [
 			{ data: "No" },
@@ -41,7 +41,7 @@
 		console.log("Berhasil Klik");
 
 		let id_kategori = $('select[name="kategori"] > option:selected').val();
-		let nominal = $('input[name="nominal"]').val();
+		let nominal = $('input[name="nominal"]').val().split(".").join("");
 		let catatan = $('input[name="catatan"]').val();
 
 		$.ajax({
@@ -86,7 +86,7 @@
 		function () {
 			var id_pengeluaran = $(this).data("id");
 			var data = table_pengeluaran.row($(this).parents("tr")).data();
-			let nominal = data["Nominal"];
+			let nominal = data["Nominal"].split("Rp ").join("");
 			let catatan = data["Keterangan"];
 			let id_kategori = data["id_kategori"];
 
@@ -101,7 +101,7 @@
 				let get_id_kategori = $(
 					'select[name="kategori"] option:selected'
 				).val();
-				let get_nominal = $('input[name="nominal"]').val();
+				let get_nominal = $('input[name="nominal"]').val().split(".").join("");
 				let get_catatan = $('input[name="catatan"]').val();
 
 				$.ajax({

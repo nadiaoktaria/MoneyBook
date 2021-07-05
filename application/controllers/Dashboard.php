@@ -14,9 +14,12 @@ class Dashboard extends CI_Controller {
 	public function index(){       
 		$data_title['title'] = 'Dashboard'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
+	
+		$total['pemasukan'] = $this->m_dashboard->total_pemasukan($profile['pengguna']['id_pengguna']);
+		$total['pengeluaran'] = $this->m_dashboard->total_pengeluaran($profile['pengguna']['id_pengguna']);
+		// echo json_encode($total['pemasukan']);
 		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/dashboard.php',$profile);
+        $this->load->view('dashboard/dashboard.php',$profile + $total);
         $this->load->view('footer.php');
 	}
 
@@ -173,7 +176,7 @@ class Dashboard extends CI_Controller {
 			$row['No'] = $no;
 			$row['Tanggal'] = $list->tanggal;
 			$row['Kategori'] = $list->nama_kategori;
-			$row['Nominal'] = $list->nominal;
+			$row['Nominal'] = 'Rp ' . number_format($list->nominal, 0, "", ".");
 			$row['Keterangan'] = $list->keterangan;
 			$row['Aksi'] = $list->id_pemasukan;
 			$row['id_kategori'] = $list->id_kategori_pemasukan;
@@ -248,7 +251,7 @@ class Dashboard extends CI_Controller {
 			$row['No'] = $no;
 			$row['Tanggal'] = $list->tanggal;
 			$row['Kategori'] = $list->nama_kategori;
-			$row['Nominal'] = $list->nominal;
+			$row['Nominal'] = 'Rp ' . number_format($list->nominal, 0, "", ".");
 			$row['Keterangan'] = $list->keterangan;
 			$row['Aksi'] = $list->id_pengeluaran;
 			$row['id_kategori'] = $list->id_kategori_pengeluaran;

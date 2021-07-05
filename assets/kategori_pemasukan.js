@@ -5,28 +5,32 @@
 		dataType: "json",
 		success: function (data) {
 			var html = "";
-			for (var i = 0; i < data.length; i++) {
-				html +=
-					"<tr>" +
-					'<td id="kode" >' +
-					data[i].kode +
-					"</td>" +
-					'<td id="nama_kategori" >' +
-					data[i].nama_kategori +
-					"</td>" +
-					"<td>" +
-					'<a data-nama="' +
-					data[i].nama_kategori +
-					'" data-kode="' +
-					data[i].kode +
-					'" data-id="' +
-					data[i].id_kategori_pemasukan +
-					'" id="EditKategori_pemasukan" class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>' +
-					'<a data-id="' +
-					data[i].id_kategori_pemasukan +
-					'" id="hapus_kategori_pemasukan" class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>' +
-					"</td>" +
-					"</tr>";
+			if(data.length < 1){
+				html = '<tr><td colspan="3" style="text-align:center">Belum ada kategori pemasukan!</td></tr>';
+			}else {
+				for (var i = 0; i < data.length; i++) {
+					html +=
+						"<tr>" +
+						'<td>' +
+						data[i].kode +
+						"</td>" +
+						'<td>' +
+						data[i].nama_kategori +
+						"</td>" +
+						"<td>" +
+						'<a data-nama="' +
+						data[i].nama_kategori +
+						'" data-kode="' +
+						data[i].kode +
+						'" data-id="' +
+						data[i].id_kategori_pemasukan +
+						'" id="EditKategori_pemasukan" class="text-success mr-4" title="Edit" data-toggle="tooltip"><i class="fas fa-edit"></i></a>' +
+						'<a data-id="' +
+						data[i].id_kategori_pemasukan +
+						'" id="hapus_kategori_pemasukan" class="text-danger" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>' +
+						"</td>" +
+						"</tr>";
+				}
 			}
 			$("#tabel_kategori_pemasukan tbody").html(html);
 		},
