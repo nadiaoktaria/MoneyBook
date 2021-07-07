@@ -41,6 +41,14 @@
 	<script src="<?= base_url() ?>assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
 	<script src="<?= base_url() ?>assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 
+	<!-- Moris Line -->
+    <script src="<?= base_url() ?>assets/js/plugin/raphael/raphael.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/morris.js/morris.min.js"></script>
+
+	<!-- Daterange Picker -->
+    <script src="<?= base_url() ?>assets/js/plugin/datepickerange/moment.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/datepickerange/daterangepicker.js"></script>
+
 	<!-- Sweet Alert -->
 	<script src="<?= base_url() ?>assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
