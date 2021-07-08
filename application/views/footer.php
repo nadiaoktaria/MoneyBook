@@ -1,5 +1,5 @@
 <!-- footer -->
-</div>
+			</div>
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="copyright ml-auto">
@@ -45,21 +45,26 @@
     <script src="<?= base_url() ?>assets/js/plugin/raphael/raphael.min.js"></script>
     <script src="<?= base_url() ?>assets/js/plugin/morris.js/morris.min.js"></script>
 
-	<!-- Daterange Picker -->
+	<!-- Date Picker -->
     <script src="<?= base_url() ?>assets/js/plugin/datepickerange/moment.min.js"></script>
     <script src="<?= base_url() ?>assets/js/plugin/datepickerange/daterangepicker.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/datepicker/bootstrap-datepicker.js"></script>
 
 	<!-- Sweet Alert -->
 	<script src="<?= base_url() ?>assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
+	<!-- Currency Format -->
+	<script src="<?= base_url() ?>assets/js/currency-format.js"></script>
+
 	<!-- Atlantis JS -->
 	<script src="<?= base_url() ?>assets/js/atlantis.min.js"></script>
 
-	<script src="<?= base_url() ?>assets/app.js"></script>
-	<script src="<?= base_url() ?>assets/kategori_pemasukan.js"></script>
-	<script src="<?= base_url() ?>assets/kategori_pengeluaran.js"></script>
-	<script src="<?= base_url() ?>assets/transaksi_pemasukan.js"></script>
-	<script src="<?= base_url() ?>assets/transaksi_pengeluaran.js"></script>
+	<!-- App -->
+	<script src="<?= base_url() ?>assets/app/dashboard.js"></script>
+	<script src="<?= base_url() ?>assets/app/kategori_pemasukan.js"></script>
+	<script src="<?= base_url() ?>assets/app/kategori_pengeluaran.js"></script>
+	<script src="<?= base_url() ?>assets/app/transaksi_pemasukan.js"></script>
+	<script src="<?= base_url() ?>assets/app/transaksi_pengeluaran.js"></script>
 
 
 
@@ -77,29 +82,6 @@
 	<?php } ?>
 
 	
-
-<script>  (function ($) {
-$("input[data-type='currency']").on({
-    keyup: function() {
-      formatCurrency($(this));
-    }
-});
-
-function formatNumber(n) {
-  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-}
-
-
-function formatCurrency(input) {
-  var input_val = input.val();
-  if (input_val === "") { return; }
-  input.val(formatNumber(input_val));
-}
-
-
-
-})(jQuery);
-</script>
 </body>
 </html>
 
