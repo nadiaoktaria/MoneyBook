@@ -436,12 +436,11 @@
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			var date = [];
-			// for (var i=0, cnt = format.parts.length; i < cnt; i++) {
-			// 	 date.push(val['yyyy']);
-			// }
-			var mnth = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "Desember"];
-
-			date.push(mnth[val['m']-1],val['yyyy']);;
+			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
+				date.push(val[format.parts[i]]);
+			}
+			// var mnth = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "Desember"];
+			// date.push(mnth[val['m']-1],val['yyyy']);;
 
 			return date.join(format.separator);
 		},

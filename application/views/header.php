@@ -17,6 +17,7 @@
 			}
 		});
 	</script>
+	
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/atlantis.min.css">
@@ -24,6 +25,7 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/daterangepicker.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/datepicker.css">
+	<style> .datepicker { z-index: 1600 !important; } </style>
 
 </head>
 <body>
