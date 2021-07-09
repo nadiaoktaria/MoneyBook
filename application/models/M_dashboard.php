@@ -28,9 +28,7 @@ class M_dashboard extends CI_Model {
     
     public function kategori_pemasukan_edit($id,$data){
         $this->db->where('id_kategori_pemasukan', $id)->update('kategori_pemasukan', $data); 
-    } 
-    
-    // pengeluaran
+    }
 
     public function kategori_pengeluaran_post($data){
 		$this->db->insert('kategori_pengeluaran', $data);
@@ -92,25 +90,57 @@ class M_dashboard extends CI_Model {
     
     public function transaksi_pengeluaran_edit($id,$data){
         $this->db->where('id_pengeluaran', $id)->update('pengeluaran', $data); 
-    } 
-
+    }
     
-    public function total_pemasukan($id){
+    public function total_pemasukan($id,$firstDate,$lastDate){
         $query = $this->db->select('sum(nominal) as total_pemasukan')
             ->from('pemasukan')
             ->where('id_pengguna',$id)
+            ->where('tanggal >=',$firstDate)
+            ->where('tanggal <=',$lastDate)
             ->get()->row_array();
-        
         return $query;
     }
     
-    public function total_pengeluaran($id){
+    public function total_pengeluaran($id,$firstDate,$lastDate){
         $query = $this->db->select('sum(nominal) as total_pengeluaran')
             ->from('pengeluaran')
             ->where('id_pengguna',$id)
+            ->where('tanggal >=',$firstDate)
+            ->where('tanggal <=',$lastDate)
             ->get()->row_array();
-        
         return $query;
     }
     
+    public function get_pemasukan_harian($id,$date){
+        $query = $this->db->select('sum(nominal) as total_pemasukan')
+            ->from('pemasukan')
+            ->where('id_pengguna',$id)
+            ->where('tanggal',$date)
+            ->get()->row_array();
+        return $query;
+    }
+    
+    public function get_jumlah_kategori_pemasukan($id,$firstDate,$lastDate){
+        $query = $this->db->select('*')
+        ->from('pemasukan')
+        ->where('pemasukan.id_pengguna',$id)
+        ->where('pemasukan.tanggal >=',$firstDate)
+        ->where('pemasukan.tanggal <=',$lastDate)
+        ->join('kategori_pemasukan','kategori_pemasukan.id_kategori_pemasukan = pemasukan.id_kategori_pemasukan')
+        ->get()->result();
+        return $query;
+    }
+    
+    public function get_jumlah_kategori_pengeluaran($id,$firstDate,$lastDate){
+        $query = $this->db->select('*')
+        ->from('pengeluaran')
+        ->where('pengeluaran.id_pengguna',$id)
+        ->where('pengeluaran.tanggal >=',$firstDate)
+        ->where('pengeluaran.tanggal <=',$lastDate)
+        ->join('kategori_pengeluaran','kategori_pengeluaran.id_kategori_pengeluaran = pengeluaran.id_kategori_pengeluaran')
+        ->get()->result();
+        return $query;
+    }
+
 }

@@ -8,15 +8,18 @@
         </div>
         
         <div class="row pb-3">
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <h2 class="fw-bold">Dashboard</h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="form-group p-1" style="border: 1px solid #e8e8e8; border-radius: 4px; background-color: #fff;">
                     <div class="input-group" >
-                        <input type="text" class="form-control form-control-sm" id="daterange" name="daterange" value="Bulan Ini" style="cursor:pointer; background: #fff !important;" readonly>
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="" style="background-color: #fff; border-color: #fff !important;"><i class="icon-calendar"></i></span>
+                            <span class="input-group-text" style="background-color: #fff; border-color: #fff !important;">Filter : </span>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" id="daterange" name="daterange" value="Bulan Ini" style="text-align:center; cursor:pointer; background: #fff !important;" readonly>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #fff; border-color: #fff !important;"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
@@ -39,7 +42,7 @@
                         <h5 class="fw-bold text-uppercase text-success op-7">Pemasukan</h5>
                         <p class="text-success"><i class="fa fa-chevron-up"></i></p>
                     </div>
-                    <h3 class="fw-bold"><?= "Rp " . number_format($pemasukan['total_pemasukan'],0,',','.'); ?></h3>
+                    <h3 class="fw-bold" id="total_pemasukan"> </h3>
                 </div>
             </div>
             <div class="card" style="min-height: 140px; max-height: 140px">
@@ -48,7 +51,7 @@
                         <h5 class="fw-bold text-uppercase text-danger op-7">Pengeluaran</h5>
                         <p class="text-danger"><i class="fa fa-chevron-down"></i></p>
                     </div>
-                    <h3 class="fw-bold"><?= "Rp " . number_format($pengeluaran['total_pengeluaran'],0,',','.'); ?></h3>
+                    <h3 class="fw-bold" id="total_pengeluaran"> </h3>
                 </div>
             </div>
         </div>
@@ -68,7 +71,7 @@
                     <div class="card-title">Persentase</div>
                 </div>
                 <div class="card-body" style="min-height: 330px; max-height: 330px">
-                    <div class="chart-container">
+                    <div class="chart-container" id="tableDonut">
                         <canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>
                     </div>
                 </div>
@@ -81,16 +84,9 @@
                 </div>
                 <div class="card-body p-0" style="min-height: 330px; max-height: 330px">
                     <div class="table-responsive">
-                        <table class="table tableBodyScroll">
+                        <table id="jumlah_kategori_pemasukan" class="table tableBodyScroll">
                             <tbody>
-                                <tr>
-                                    <td style="width: 100%;">Pendapatan</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>Lain-lain</td>
-                                    <td>3</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -104,16 +100,9 @@
                 </div>
                 <div class="card-body p-0" style="min-height: 330px; max-height: 330px">
                     <div class="table-responsive">
-                        <table class="table tableBodyScroll">
+                        <table id="jumlah_kategori_pengeluaran" class="table tableBodyScroll">
                             <tbody>
-                                <tr>
-                                    <td style="width: 100%;">Pendapatan</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>Lain-lain</td>
-                                    <td>3</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>

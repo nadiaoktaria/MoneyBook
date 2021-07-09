@@ -1,123 +1,110 @@
 (function ($) {
-    
-
-    // var start = moment().startOf('month');
-    // var end = moment().endOf('month');
-    // let label="This Month";
-
-    // $('#daterange').daterangepicker({
-    //     startDate: start,
-    //     endDate: end,
-    //     ranges: {
-    //     'This Month': [moment().startOf('month'), moment().endOf('month')],
-    //     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-    //     }
-    // },cb);
-    // cb(start, end, label); 
-    // function cb(start,end, label) {
-
-    //     // console.log(start.format('YYYY-MM-DD').substring(5, 7) , start.format('YYYY'));
-
-    //     switch(start.format('MM')) {
-    //         case "01":
-    //             label = "Januari" + start.format('YYYY');
-    //             console.log(label);
-    //             break;
-    //     } 
-
-    //     //reset
-    //     $('input[name="daterange"]').val('');
-    //     // $('input[name="daterange"]').removeAttr('data-startdate');
-    //     // $('input[name="daterange"]').removeAttr('data-enddate');
-    //     //append
-    //     $('input[name="daterange"]').val('Januari');
-    //     // $('input[name="daterange"]').attr('data-startdate',start.format('YYYY-MM-DD'));
-    //     // $('input[name="daterange"]').attr('data-enddate',end.format('YYYY-MM-DD'));
-    // }
-
+    var this_month = moment().startOf('month').format('MM');
+    filter(this_month);
 
     $("#daterange").datepicker( {
         format: "mm-yyyy",
         viewMode: "months", 
         minViewMode: "months",
     }).on('changeDate', function (e) {
-        $(this).datepicker('hide'); 
-        document.getElementById('daterange').value='text to be displayed' ; 
-        filter(e);
+        $(this).datepicker('hide');
+        var numb = e.date.getMonth()+1;
+        this_month = ( numb < 10 ? '0' : '') + numb;
+        filter(this_month);
     });
 
-    function filter(e){
-        console.log(e.date.getMonth()+1);
-        $('input[name="daterange"]').val('Januari');
+    function filter(month){
+        $.ajax({
+            url: "dashboard/ajax_dashboard",
+            method: "POST",
+            dataType: 'json',
+            data: { month: month },
+            success: function (data) {
+                if (data.massage == "success") {
+                    diagramMorris(data.dataMorris);
+                    PemasukanPengeluaran(data.totalPemasukan, data.totalPengeluaran);
+                    diagramDonut(data.dataDonut);
+                    jumlahKategori(data.datakatPemasukan,data.datakatPengeluaran)
+                } 
+            },
+        });
     }
 
-	new Chart(doughnutChart, {
-		type: "doughnut",
-		data: {
-			datasets: [
-				{
-					data: [10, 10],
-					backgroundColor: ["#fdaf4b", "#1d7af3"],
-				},
-			],
-			labels: ["Pemasukan", "Pengeluaran"],
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			legend: {
-				position: "bottom",
-			},
-			layout: {
-				padding: {
-					left: 20,
-					right: 20,
-					top: 20,
-					bottom: 20,
-				},
-			},
-		},
-	});
+    function PemasukanPengeluaran(totalPemasukan,totalPengeluaran){
+        document.getElementById("total_pemasukan").innerHTML = totalPemasukan;
+        document.getElementById("total_pengeluaran").innerHTML = totalPengeluaran;
+    }
 
-    new Morris.Line({
-        element: 'morrisLine',
-        data: [
-            { tanggal: '2021-07-01', value: 1000000 },
-            { tanggal: '2021-07-02', value: 0 },
-            { tanggal: '2021-07-03', value: 200000 },
-            { tanggal: '2021-07-04', value: 300000 },
-            { tanggal: '2021-07-05', value: 2000000 },
-            { tanggal: '2021-07-06', value: 0 },
-            { tanggal: '2021-07-07', value: 0 },
-            { tanggal: '2021-07-08', value: 0 },
-            { tanggal: '2021-07-09', value: 0 },
-            { tanggal: '2021-07-10', value: 0 },
-            { tanggal: '2021-07-11', value: 0 },
-            { tanggal: '2021-07-12', value: 0 },
-            { tanggal: '2021-07-13', value: 0 },
-            { tanggal: '2021-07-14', value: 0 },
-            { tanggal: '2021-07-15', value: 300000 },
-            { tanggal: '2021-07-16', value: 0 },
-            { tanggal: '2021-07-17', value: 0 },
-            { tanggal: '2021-07-18', value: 0 },
-            { tanggal: '2021-07-19', value: 0 },
-            { tanggal: '2021-07-20', value: 0 },
-            { tanggal: '2021-07-21', value: 0 },
-            { tanggal: '2021-07-22', value: 0 },
-            { tanggal: '2021-07-23', value: 1000000 },
-            { tanggal: '2021-07-24', value: 0 },
-            { tanggal: '2021-07-25', value: 0 },
-            { tanggal: '2021-07-26', value: 0 },
-            { tanggal: '2021-07-27', value: 0 },
-            { tanggal: '2021-07-28', value: 0 },
-            { tanggal: '2021-07-29', value: 0 },
-            { tanggal: '2021-07-30', value: 0 },
-        ],
-        xkey:'tanggal',
-        ykeys:['value'],
-        labels:['value'],
-        lineColors: ['#f77eb9'],
-        gridLineColor: ['rgba(77, 138, 240, .2)'],
-    });
+    function diagramMorris(dataMorris){
+        $('#morrisLine').html('');
+        new Morris.Line({
+            element: 'morrisLine',
+            data: dataMorris,
+            xkey:'tanggal',
+            ykeys:['value'],
+            labels:['value'],
+            lineColors: ['#f77eb9'],
+            gridLineColor: ['rgba(77, 138, 240, .2)'],
+        });
+
+    }
+    
+    function diagramDonut(dataDonut){
+        $('#doughnutChart').remove();
+        $('#tableDonut').append('<canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>');
+        new Chart(doughnutChart, {
+            type: "doughnut",
+            data: {
+                datasets: [{
+                    data: dataDonut,
+                    backgroundColor: ["#fdaf4b", "#1d7af3"],
+                }],
+                labels: ["Pemasukan", "Pengeluaran"],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: "bottom",
+                },
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 20,
+                    },
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                          var dataset = data.datasets[tooltipItem.datasetIndex];
+                          var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+                          var total = meta.total;
+                          var currentValue = dataset.data[tooltipItem.index];
+                          var percentage = parseFloat((currentValue/total*100).toFixed(1));
+                          return percentage + '%';
+                        },
+                        title: function(tooltipItem, data) {
+                          return data.labels[tooltipItem[0].index];
+                        }
+                      }
+                }
+            },
+        });
+    }
+
+    function jumlahKategori(datakatPemasukan,datakatPengeluaran){
+        var htmlPemasukan = "";
+        var htmlPengeluaran = "";
+        for (kat in datakatPemasukan){
+            htmlPemasukan += '<tr><td style="width: 100%;">'+ kat +'</td><td>'+ datakatPemasukan[kat] +'</td></tr>';
+        }
+        for (kat in datakatPengeluaran){
+            htmlPengeluaran += '<tr><td style="width: 100%;">'+ kat +'</td><td>'+ datakatPengeluaran[kat] +'</td></tr>';
+        }
+        $("#jumlah_kategori_pemasukan tbody").html(htmlPemasukan);
+        $("#jumlah_kategori_pengeluaran tbody").html(htmlPengeluaran);
+    }
 
 })(jQuery);

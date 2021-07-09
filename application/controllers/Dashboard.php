@@ -14,12 +14,9 @@ class Dashboard extends CI_Controller {
 	public function index(){       
 		$data_title['title'] = 'Dashboard'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-	
-		$total['pemasukan'] = $this->m_dashboard->total_pemasukan($profile['pengguna']['id_pengguna']);
-		$total['pengeluaran'] = $this->m_dashboard->total_pengeluaran($profile['pengguna']['id_pengguna']);
-		// echo json_encode($total['pemasukan']);
+		
 		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/dashboard.php',$profile + $total);
+        $this->load->view('dashboard/dashboard.php',$profile);
         $this->load->view('footer.php');
 	}
 
@@ -46,8 +43,6 @@ class Dashboard extends CI_Controller {
 		$this->session->set_flashdata('success', 'Profile Berhasil Disimpan!');
 		redirect('profile');
 	}
-	
-	// CRUD Kategori Pemasukan
 
 	public function kategori_pemasukan(){    
 		$data_title['title'] = 'Kategori Pemasukan'; 
@@ -100,8 +95,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	// CRUD Kategori Pengeluaran
-
 	public function kategori_pengeluaran(){    
 		$data_title['title'] = 'Kategori Pengeluaran'; 
 		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
@@ -153,7 +146,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	// Transaksi Pemasukan
 	public function pemasukan(){        
 		$data_title['title'] = 'Pemasukan'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
@@ -226,9 +218,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	//---------------
-
-	// Transaksi Pengeluaran
 	public function pengeluaran(){        
 		$data_title['title'] = 'pengeluaran'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
@@ -318,5 +307,69 @@ class Dashboard extends CI_Controller {
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/data_karyawan.php');
         $this->load->view('footer.php');
+	}
+
+	public function ajax_dashboard(){
+		if(!empty($_POST['month'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+			$month = $_POST['month'];
+			$jumtanggal = cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
+			$first_date = date('Y-m-d', mktime(0,0,0,$month,01,date('Y')));
+			$last_date = date('Y-m-d', mktime(0,0,0,$month,$jumtanggal,date('Y')));
+
+			//--------------------Total Pemasukan & Pengeluaran & Diagram Donut--------------------//
+			$pemasukan = $this->m_dashboard->total_pemasukan($pengguna['id_pengguna'],$first_date,$last_date);
+			$pengeluaran = $this->m_dashboard->total_pengeluaran($pengguna['id_pengguna'],$first_date,$last_date);
+			$total_pemasukan = "Rp " . number_format($pemasukan['total_pemasukan'],0,',','.');
+			$total_pengeluaran = "Rp " . number_format($pengeluaran['total_pengeluaran'],0,',','.');
+			$data_donut = array($pemasukan['total_pemasukan'],$pengeluaran['total_pengeluaran']);
+
+			//--------------------Diagram Morris--------------------//
+			$data_morris = array();
+			for($i=1; $i <= $jumtanggal; $i++){
+				$tanggal= date('Y-m-d', mktime(0,0,0,$month,$i,date('Y')));
+				$rows = [];
+				$rows['tanggal'] = $tanggal;
+				$pemasukan_harian = $this->m_dashboard->get_pemasukan_harian($pengguna['id_pengguna'],$tanggal);
+				if($pemasukan_harian['total_pemasukan'] > 0){
+					$rows['value'] = intval($pemasukan_harian['total_pemasukan']);
+				}else{
+					$rows['value'] = 0;
+				}
+				$data_morris[] =  $rows;
+			}
+			
+			//--------------------Jumlah Kategori Pemasukan & Pengeluaran--------------------//
+			$jumkatPemasukan = $this->m_dashboard->get_jumlah_kategori_pemasukan($pengguna['id_pengguna'],$first_date,$last_date);
+			$jumkatPengeluaran = $this->m_dashboard->get_jumlah_kategori_pengeluaran($pengguna['id_pengguna'],$first_date,$last_date);
+			$datakatPemasukan = array();
+			$datakatPengeluaran = array();
+			if(count($jumkatPemasukan)>0){
+				foreach ($jumkatPemasukan as $list) {
+					$row1 = $list->nama_kategori;
+					$pemasukanKat[] = $row1;
+				}
+				$datakatPemasukan = array_count_values($pemasukanKat);
+			}
+			if(count($jumkatPengeluaran)>0){
+				foreach ($jumkatPengeluaran as $list) {
+					$row2 = $list->nama_kategori;
+					$pengeluaranKat[] = $row2;
+				}
+				$datakatPengeluaran = array_count_values($pengeluaranKat);
+			}
+
+			$output = array(
+				"massage" => "success",
+				"totalPemasukan" => $total_pemasukan,
+				"totalPengeluaran" => $total_pengeluaran,
+				"dataMorris" => $data_morris,
+				"dataDonut" => $data_donut,
+				"datakatPemasukan" => $datakatPemasukan,
+				"datakatPengeluaran" => $datakatPengeluaran
+			);
+			echo json_encode($output);
+			exit();
+		}
 	}
 }
