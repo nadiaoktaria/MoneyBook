@@ -53,18 +53,24 @@
 
                                 <div class="form-group">
 									<label for="no_hp">Nomer Handphone </label>
-									<input id="no_hp" type="no_hp" class="form-control" name="no_hp" required>
+									<input id="no_hp" type="text" class="form-control" name="no_hp" required>
+								</div>
+
+								<div class="form-group">
+									<label for="jenis">Jenis Pembukuan </label>
+									<select class="form-control" name="jenis" id="jenis" >
+										<option value="Personal">Personal</option>
+										<option value="Company">Company</option>
+									</select>
 								</div>
 
                                 <div class="form-group">
 									<label for="alamat">Alamat </label>
-									<input id="alamat" type="alamat" class="form-control" name="alamat" required>
+									<input id="alamat" type="text" class="form-control" name="alamat" required>
 								</div>
 
 								<div class="form-group mt-4">
-									<button type="submit" class="btn btn-primary btn-block">
-										Register
-									</button>
+									<button type="submit" class="btn btn-primary btn-block">Register</button>
 								</div>
 								<div class="mt-4 text-center">
 									Sudah memiliki akun? <a href="<?= base_url('login') ?>">Login</a>

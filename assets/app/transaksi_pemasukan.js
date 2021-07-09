@@ -123,8 +123,6 @@
 		let tanggal = data["Tanggal"];
 		let id_kategori = data["id_kategori"];
 
-		console.log(tanggal);
-
 		$('select[name="kategori"]').val(id_kategori);
 		$('input[name="nominal"]').val(nominal);
 		$('input[name="catatan"]').val(catatan);
@@ -133,7 +131,7 @@
 		$('input[name="edit_transPemasukan"]').attr("type", "text");
 		$('input[name="add_transPemasukan"]').attr("type", "hidden");
 
-		$("body").on("click", "input#edit_trans_pemasukan", function () {
+		$("body").on("click", "input#edit_transPemasukan", function () {
 			let get_id_kategori = $('select[name="kategori"] option:selected').val();
 			let get_nominal = $('input[name="nominal"]').val().split(".").join("");
 			let get_catatan = $('input[name="catatan"]').val();
@@ -178,7 +176,6 @@
 
 	$("#datatable_pemasukan tbody").on("click","#hapus_trans_pemasukan",function () {
 		var id_pemasukan = $(this).data("id");
-		console.log(id_pemasukan);
 		swal({
 			title: "Apakah anda yakin?",
 			text: "Data yang telah dihapus tidak dapat dikembalikan lagi!",

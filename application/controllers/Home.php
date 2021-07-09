@@ -77,7 +77,8 @@ class Home extends CI_Controller {
                     'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                     'alamat' => $this->input->post('alamat', true),
                     'no_hp' => $this->input->post('no_hp', true),
-                    'jenis' => 'Personal',
+                    'jenis' => $this->input->post('jenis', true),
+                    // 'jenis' => 'Personal',
                     'foto' => 'profile.png'
                 ];
                 $this->m_home->daftar_akun($data);

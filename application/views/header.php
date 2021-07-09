@@ -62,14 +62,14 @@
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
-									<img src="<?= base_url() ?>assets/img/<?= $pengguna['foto']; ?>" alt="..." class="avatar-img rounded-circle">
+									<img src="<?= base_url() ?>assets/img/profile/<?= $pengguna['foto']; ?>" alt="..." class="avatar-img rounded-circle">
 								</div>
 							</a>
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
 										<div class="user-box">
-											<div class="avatar-lg"><img src="<?= base_url() ?>assets/img/<?= $pengguna['foto']; ?>" alt="image profile" class="avatar-img rounded"></div>
+											<div class="avatar-lg"><img src="<?= base_url() ?>assets/img/profile/<?= $pengguna['foto']; ?>" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
 												<h4><?= $pengguna['nama']; ?></h4>
 												<p class="text-muted"><?= $pengguna['email']; ?></p><a href="<?= base_url('profile') ?>" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
@@ -148,6 +148,8 @@
 								</ul>
 							</div>
 						</li>
+						
+						<?php if($pengguna['jenis'] == 'Company'){ ?>	
 						<li <?=$this->uri->segment(1) == 'data_karyawan' || $this->uri->segment(1) == 'gaji_karyawan'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
 							<a data-toggle="collapse" href="#karyawan">
 								<i class="fas fa-users"></i>
@@ -169,6 +171,7 @@
 								</ul>
 							</div>
 						</li>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>

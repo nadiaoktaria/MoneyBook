@@ -13,31 +13,24 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mx-auto d-block">
-                        <img class="rounded-circle mx-auto d-block"
-                            src="<?= base_url() ?>assets/img/<?= $pengguna['foto']; ?>"
-                            alt="Card image cap" width="180">
+                        <img class="rounded-circle mx-auto d-block" src="<?= base_url() ?>assets/img/profile/<?= $pengguna['foto']; ?>" alt="Card image cap" width="180">
                         <h5 class="text-sm-center mt-2 mb-1"><b><?= $pengguna['nama']; ?></b></h5>
-
-                        <div class="location text-sm-center"><i class="icon-envelope mr-1"></i>
-                            <?= $pengguna['email']; ?></div>
-                        <div class="location text-sm-center"><i class="icon-location-pin mr-1"></i>
-                            <?= $pengguna['alamat']; ?></div>
+                        <div class="location text-sm-center"><i class="icon-envelope mr-1"></i><?= $pengguna['email']; ?></div>
+                        <div class="location text-sm-center"><i class="icon-location-pin mr-1"></i><?= $pengguna['alamat']; ?></div>
                     </div>
                     <hr>
                     <div class="card-text">
-                        <form action="<?= base_url('dashboard/upload_foto_profil') ?>" enctype="multipart/form-data" method="post" accept-charset="utf-8" id="upload_foto_profil">
-
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <label class="custom-file-label" for="file-upload">Pilih file foto...</label>
-                                <input type="file" class="custom-file-input" id="file-upload" name="berkas">
+                        <form action="<?= base_url('dashboard/upload_foto_profil') ?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="profile_image">Pilih file foto...</label>
+                                    <input type="file" class="custom-file-input" id="profile_image" name="profile_image">
+                                </div>
+                                <div class="input-group-append" >
+                                    <button type="submit" class="btn btn-primary btn-upload" style="padding:0 8px 0 8px; weight:10px; height:calc(2.25rem + 2px)">
+                                    <i class="fa fa-upload p-0 m-0"></i></button>
+                                </div>
                             </div>
-                            <div class="input-group-append" >
-                                <button class="btn btn-primary btn-upload" style="padding:0 8px 0 8px; weight:10px; height:calc(2.25rem + 2px)" type="submit">
-                                <i class="fa fa-upload p-0 m-0"></i></button>
-                            </div>
-                        </div>
-
                         </form>
                     </div>
                 </div>

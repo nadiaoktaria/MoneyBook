@@ -44,8 +44,8 @@
                                 <div class="col-md-2">	
                                 <center>
                                     <div class="form-group mt-5">
-                                        <input class="btn btn-primary" type="hidden" name="edit_transPengeluaran" id="edit_trans_pengeluaran" value="Edit" style="padding:9px" size="7" readonly>
-                                        <input class="btn btn-primary" type="text" name="add_transPengeluaran" id="add_trans_pengeluaran" value="Tambah" style="padding:9px" size="7" readonly>
+                                        <input class="btn btn-primary" type="hidden" name="edit_transPengeluaran" id="edit_transPengeluaran" value="Edit" style="padding:9px" size="7" readonly>
+                                        <input class="btn btn-primary" type="text" name="add_transPengeluaran" id="add_transPengeluaran" value="Tambah" style="padding:9px" size="7" readonly>
                                     </div>
                                 </center>
                                 </div>

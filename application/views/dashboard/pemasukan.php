@@ -78,8 +78,8 @@
                 </div> 
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-primary" type="hidden" name="edit_transPemasukan" id="edit_trans_pemasukan" value="Edit" style="padding:9px" size="7" readonly>
-                    <input class="btn btn-primary" type="text" name="add_transPemasukan" id="add_trans_pemasukan" value="Tambah" style="padding:9px" size="7" readonly>
+                    <input class="btn btn-primary" type="hidden" name="edit_transPemasukan" id="edit_transPemasukan" value="Edit" style="padding:9px" size="7" readonly>
+                    <input class="btn btn-primary" type="text" name="add_transPemasukan" id="add_transPemasukan" value="Tambah" style="padding:9px" size="7" readonly>
                 </div>
             </div>
         </form>

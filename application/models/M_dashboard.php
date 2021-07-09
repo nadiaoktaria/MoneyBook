@@ -22,8 +22,8 @@ class M_dashboard extends CI_Model {
         return $this->db->get_where('kategori_pemasukan', ['id_pengguna' => $id_pengguna])->result();
     }
 
-    public function kategori_pemasukan_delete($id_kategori_pemasukan){
-        return $this->db->delete('kategori_pemasukan', array('id_kategori_pemasukan' => $id_kategori_pemasukan)); 
+    public function kategori_pemasukan_delete($id){
+        return $this->db->delete('kategori_pemasukan', array('id_kategori_pemasukan' => $id)); 
     }
     
     public function kategori_pemasukan_edit($id,$data){
@@ -41,8 +41,8 @@ class M_dashboard extends CI_Model {
         return $this->db->get_where('kategori_pengeluaran', ['id_pengguna' => $id_pengguna])->result();
     }
 
-    public function kategori_pengeluaran_delete($id_kategori_pengeluaran){
-        return $this->db->delete('kategori_pengeluaran', array('id_kategori_pengeluaran' => $id_kategori_pengeluaran)); 
+    public function kategori_pengeluaran_delete($id){
+        return $this->db->delete('kategori_pengeluaran', array('id_kategori_pengeluaran' => $id)); 
     }
     
     public function kategori_pengeluaran_edit($id,$data){
@@ -55,7 +55,6 @@ class M_dashboard extends CI_Model {
         ->where('pemasukan.id_pengguna',$id_pengguna)
         ->join('kategori_pemasukan','kategori_pemasukan.id_kategori_pemasukan = pemasukan.id_kategori_pemasukan')
         ->get()->result();
-
         return $query;
     }
 
@@ -63,8 +62,8 @@ class M_dashboard extends CI_Model {
 		$this->db->insert('pemasukan', $data);
 	}
 
-    public function transaksi_pemasukan_delete($id_transaksi_pemasukan){
-        return $this->db->delete('pemasukan', array('id_pemasukan' => $id_transaksi_pemasukan)); 
+    public function transaksi_pemasukan_delete($id){
+        return $this->db->delete('pemasukan', array('id_pemasukan' => $id)); 
     }
     
     public function transaksi_pemasukan_edit($id,$data){
@@ -76,7 +75,6 @@ class M_dashboard extends CI_Model {
         ->where('pengeluaran.id_pengguna',$id_pengguna)
         ->join('kategori_pengeluaran','kategori_pengeluaran.id_kategori_pengeluaran = pengeluaran.id_kategori_pengeluaran')
         ->get()->result();
-
         return $query;
     }
 
@@ -84,8 +82,8 @@ class M_dashboard extends CI_Model {
 		$this->db->insert('pengeluaran', $data);
 	}
 
-    public function transaksi_pengeluaran_delete($id_transaksi_pengeluaran){
-        return $this->db->delete('pengeluaran', array('id_pengeluaran' => $id_transaksi_pengeluaran)); 
+    public function transaksi_pengeluaran_delete($id){
+        return $this->db->delete('pengeluaran', array('id_pengeluaran' => $id)); 
     }
     
     public function transaksi_pengeluaran_edit($id,$data){
@@ -141,6 +139,22 @@ class M_dashboard extends CI_Model {
         ->join('kategori_pengeluaran','kategori_pengeluaran.id_kategori_pengeluaran = pengeluaran.id_kategori_pengeluaran')
         ->get()->result();
         return $query;
+    }
+
+    public function data_karyawan_get($id_pengguna){
+        return $this->db->get_where('karyawan', ['id_pengguna' => $id_pengguna])->result();
+    }
+
+    public function data_karyawan_post($data){
+		$this->db->insert('karyawan', $data);
+	}
+    
+    public function data_karyawan_edit($id,$data){
+        $this->db->where('id_karyawan', $id)->update('karyawan', $data); 
+    }
+
+    public function data_karyawan_delete($id){
+        return $this->db->delete('karyawan', array('id_karyawan' => $id)); 
     }
 
 }

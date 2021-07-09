@@ -97,7 +97,7 @@
 			$('input[name="edit_transPengeluaran"]').attr("type", "text");
 			$('input[name="add_transPengeluaran"]').attr("type", "hidden");
 
-			$("body").on("click", "input#edit_trans_pengeluaran", function () {
+			$("body").on("click", "input#edit_transPengeluaran", function () {
 				let get_id_kategori = $(
 					'select[name="kategori"] option:selected'
 				).val();
