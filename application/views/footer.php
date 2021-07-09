@@ -29,32 +29,23 @@
     <script src="<?= base_url() ?>assets/js/plugin/datepickerange/daterangepicker.js"></script>
     <script src="<?= base_url() ?>assets/js/plugin/datepicker/bootstrap-datepicker.js"></script>
 	<script src="<?= base_url() ?>assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/jszip.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/pdfmake.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/vfs_fonts.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/buttons.html5.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/plugin/export_files/buttons.print.min.js"></script>
 	<script src="<?= base_url() ?>assets/js/currency-format.js"></script>
 	<script src="<?= base_url() ?>assets/js/atlantis.min.js"></script>
 
 	<!-- App -->
+	<script src="<?= base_url() ?>assets/app/profile.js"></script>
 	<script src="<?= base_url() ?>assets/app/dashboard.js"></script>
 	<script src="<?= base_url() ?>assets/app/kategori_pemasukan.js"></script>
 	<script src="<?= base_url() ?>assets/app/kategori_pengeluaran.js"></script>
 	<script src="<?= base_url() ?>assets/app/transaksi_pemasukan.js"></script>
 	<script src="<?= base_url() ?>assets/app/transaksi_pengeluaran.js"></script>
 
-
-
-	<?php if ($this->session->flashdata('success')) { ?>
-    	<script>  
-			swal("Success", "<?= $this->session->flashdata('success')?>", {
-				icon : "success",
-				buttons: {        			
-					confirm: {
-						className : 'btn btn-success'
-					}
-				},
-			});   
-		</script>
-	<?php } ?>
-
-	
 </body>
 </html>
 

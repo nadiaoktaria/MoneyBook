@@ -57,10 +57,7 @@
 							},
 						},
 					});
-
-					setTimeout(() => {
-						window.location.reload();
-					}, 1000);
+					setTimeout(() => { window.location.reload() }, 1000);
 				} else {
 					swal("Gagal", "Kategori Pemasukan Gagal di Tambah!", {
 						icon: "error",
@@ -107,10 +104,7 @@
 									},
 								},
 							});
-
-							setTimeout(() => {
-								window.location.reload();
-							}, 1000);
+							setTimeout(() => { window.location.reload() }, 1000);
 						} else {
 							swal("Gagal", "Kategori Pemasukan Gagal di Ganti!", {
 								icon: "error",
@@ -165,10 +159,7 @@
 										},
 									},
 								});
-
-								setTimeout(() => {
-									window.location.reload();
-								}, 1000);
+								setTimeout(() => { window.location.reload() }, 1000);
 							} else {
 								swal("Gagal", "Kategori Pemasukan Gagal di Hapus!", {
 									icon: "error",

@@ -25,6 +25,7 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/daterangepicker.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/css/datepicker.css">
+  	<link rel="stylesheet" href="<?= base_url() ?>assets/css/buttons.dataTables.min.css">
 	<style> .datepicker { z-index: 1600 !important; } </style>
 
 </head>

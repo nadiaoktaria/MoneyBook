@@ -11,8 +11,8 @@
         <div class="card mt--2">
             <div class="card-header">
                 <div class="row">
-                    <button class="btn btn-secondary m-2" name="tambah_pemasukan" id="tambah_pemasukan" style="text-align:center; cursor:pointer;">
-                        <span class="btn-label"><i class="fa fa-plus"></i></span>Tambah Pemasukan
+                    <button class="btn btn-warning m-2" name="tambah_pemasukan" id="tambah_pemasukan" style="padding:5px 10px 5px 10px;">
+                        <span class="btn-label mr-1"><i class="fa fa-plus"></i></span>Tambah Pemasukan
                     </button>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Tanggal : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="tanggal" id="tanggal" value="<?= date('Y-m-d') ?>" style="cursor:pointer; background: #fff !important;" readonly>
+                                <input type="text" class="form-control" name="tanggal" id="tanggal" style="cursor:pointer; background: #fff !important;" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Catatan : <span class="text-danger">*</span> </label>

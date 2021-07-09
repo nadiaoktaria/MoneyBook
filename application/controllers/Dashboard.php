@@ -29,21 +29,6 @@ class Dashboard extends CI_Controller {
         $this->load->view('footer.php');
 	}
 
-	public function ubah_profile(){ 
-		$pengguna = $this->m_dashboard->get_data_pengguna();
-		
-		$data = [
-			'nama' => $this->input->post('nama'),
-			'email' => $this->input->post('email'),
-			'no_hp' => $this->input->post('no_hp'),
-			'alamat' => $this->input->post('alamat'),
-		];
-
-		$this->m_dashboard->update_profil($pengguna['id_pengguna'],$data);
-		$this->session->set_flashdata('success', 'Profile Berhasil Disimpan!');
-		redirect('profile');
-	}
-
 	public function kategori_pemasukan(){    
 		$data_title['title'] = 'Kategori Pemasukan'; 
 		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
@@ -51,6 +36,67 @@ class Dashboard extends CI_Controller {
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/kategori_pemasukan.php');
         $this->load->view('footer.php');
+	}
+
+	public function kategori_pengeluaran(){    
+		$data_title['title'] = 'Kategori Pengeluaran'; 
+		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
+		
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/kategori_pengeluaran.php');
+        $this->load->view('footer.php');
+	}
+
+	public function pemasukan(){        
+		$data_title['title'] = 'Pemasukan'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		$kategori['kategori'] = $this->m_dashboard->kategori_pemasukan_get($profile['pengguna']['id_pengguna']);
+
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/pemasukan.php',$kategori);
+        $this->load->view('footer.php');
+	}
+
+	public function pengeluaran(){        
+		$data_title['title'] = 'pengeluaran'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		$kategori['kategori'] = $this->m_dashboard->kategori_pengeluaran_get($profile['pengguna']['id_pengguna']);
+
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/pengeluaran.php',$kategori);
+        $this->load->view('footer.php');
+	}
+
+	public function gaji_karyawan(){  
+		$data_title['title'] = 'Gaji Karyawan'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/gaji_karyawan.php');
+        $this->load->view('footer.php');
+	}
+
+	public function data_karyawan(){ 
+		$data_title['title'] = 'Data Karyawan'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/data_karyawan.php');
+        $this->load->view('footer.php');
+	}
+
+	public function ubah_profile(){ 
+		if(!empty($_POST['nama']) && !empty($_POST['no_hp']) && !empty($_POST['alamat'])){
+			$pengguna = $this->m_dashboard->get_data_pengguna();
+			$data = [
+				'nama' => $_POST['nama'],
+				'no_hp' => $_POST['no_hp'],
+				'alamat' => $_POST['alamat'],
+			];
+			$this->m_dashboard->update_profil($pengguna['id_pengguna'],$data);
+			echo "success";
+			exit();
+		}
 	}
 
 	public function get_kategori_pemasukan(){
@@ -95,15 +141,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function kategori_pengeluaran(){    
-		$data_title['title'] = 'Kategori Pengeluaran'; 
-		$profile['pengguna'] = $this->m_dashboard->get_data_pengguna();
-		
-		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/kategori_pengeluaran.php');
-        $this->load->view('footer.php');
-	}
-
 	public function get_kategori_pengeluaran(){
 		$pengguna =  $this->m_dashboard->get_data_pengguna();
 		$data = $this->m_dashboard->kategori_pengeluaran_get($pengguna['id_pengguna']);
@@ -146,16 +183,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function pemasukan(){        
-		$data_title['title'] = 'Pemasukan'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		$kategori['kategori'] = $this->m_dashboard->kategori_pemasukan_get($profile['pengguna']['id_pengguna']);
-
-		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/pemasukan.php',$kategori);
-        $this->load->view('footer.php');
-	}
-
 	public function get_transaksi_pemasukan(){
 		$pengguna =  $this->m_dashboard->get_data_pengguna();
 		$kategori = $this->m_dashboard->transaksi_pemasukan_get($pengguna['id_pengguna']);
@@ -189,6 +216,7 @@ class Dashboard extends CI_Controller {
 				'id_kategori_pemasukan' => $_POST['id_kategori'],
 				'nominal' => $_POST['nominal'],
 				'keterangan' => $_POST['catatan'],
+				'tanggal' => $_POST['tanggal'],
 			];
 
 			$this->m_dashboard->transaksi_pemasukan_post($data);
@@ -211,21 +239,12 @@ class Dashboard extends CI_Controller {
 				'id_kategori_pemasukan' => $_POST['id_kategori'],
 				'nominal' => $_POST['nominal'],
 				'keterangan' => $_POST['catatan'],
+				'tanggal' => $_POST['tanggal'],
 			];
 			$this->m_dashboard->transaksi_pemasukan_edit($_POST['id_pemasukan'],$data);
 			echo "success";
 			exit();
 		}
-	}
-
-	public function pengeluaran(){        
-		$data_title['title'] = 'pengeluaran'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		$kategori['kategori'] = $this->m_dashboard->kategori_pengeluaran_get($profile['pengguna']['id_pengguna']);
-
-		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/pengeluaran.php',$kategori);
-        $this->load->view('footer.php');
 	}
 
 	public function get_transaksi_pengeluaran(){
@@ -288,25 +307,6 @@ class Dashboard extends CI_Controller {
 			echo "success";
 			exit();
 		}
-	}
-
-
-	public function gaji_karyawan(){  
-		$data_title['title'] = 'Gaji Karyawan'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
-		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/gaji_karyawan.php');
-        $this->load->view('footer.php');
-	}
-
-	public function data_karyawan(){ 
-		$data_title['title'] = 'Data Karyawan'; 
-		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
-		
-		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/data_karyawan.php');
-        $this->load->view('footer.php');
 	}
 
 	public function ajax_dashboard(){

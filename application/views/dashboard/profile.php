@@ -46,7 +46,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-body m-3">
-                    <form id="ubah_profil" method="POST" action="<?= base_url('dashboard/ubah_profile') ?>">
+                    <form id="ubah_profil" method="POST" enctype="multipart/form-data" accept-charset="utf-8">
                         <div class="row mb-3">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Nama</h6>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" name="email" class="form-control"
-                                    value="<?= $pengguna['email']; ?>" required>
+                                    value="<?= $pengguna['email']; ?>" readonly>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -83,11 +83,8 @@
                                     value="<?= $pengguna['alamat']; ?>" required>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9 text-secondary">
-                                <button type="submit" class="btn btn-primary btn-confirmation px-4 mt-4">Ubah Profil</button>
-                            </div>
+                        <div class="row justify-content-center">
+                            <input type="text" id="edit_profile" class="btn btn-primary p-2 mt-4" value="Ubah Profil">
                         </div>
                     </form>
                 </div>

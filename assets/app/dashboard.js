@@ -1,5 +1,5 @@
 (function ($) {
-    var this_month = moment().startOf('month').format('MM');
+    var this_month = moment().format('MM');
     filter(this_month);
 
     $("#daterange").datepicker( {
@@ -107,4 +107,6 @@
         $("#jumlah_kategori_pengeluaran tbody").html(htmlPengeluaran);
     }
 
+	$('#tanggal').datepicker({ format: 'yyyy-mm-dd' }).on('changeDate', function() { $(this).datepicker('hide') });
+    
 })(jQuery);
