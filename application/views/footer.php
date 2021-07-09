@@ -36,6 +36,7 @@
     <script src="<?= base_url() ?>assets/js/plugin/export_files/buttons.html5.min.js"></script>
     <script src="<?= base_url() ?>assets/js/plugin/export_files/buttons.print.min.js"></script>
 	<script src="<?= base_url() ?>assets/js/currency-format.js"></script>
+	<script src="<?= base_url() ?>assets/js/realtime.js"></script>
 	<script src="<?= base_url() ?>assets/js/atlantis.min.js"></script>
 
 	<!-- App -->

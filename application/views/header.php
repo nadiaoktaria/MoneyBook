@@ -56,8 +56,8 @@
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 				<div class="container-fluid">
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="text-white  nav-item mt-3 mr-3">
-							<p><i class="fas fa-calendar-alt mr-3"></i><?= date('d F Y'); ?></p>
+						<li class="text-white  nav-item mt-3 mr-4">
+							<p id="realtime"></p>
 						</li>
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
