@@ -474,4 +474,20 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function reset_trans_pemasukan(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->reset_transaksi_pemasukan($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function reset_trans_pengeluaran(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->reset_transaksi_pengeluaran($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
 }

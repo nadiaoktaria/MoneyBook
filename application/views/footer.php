@@ -48,6 +48,7 @@
 	<script src="<?= base_url() ?>assets/app/transaksi_pengeluaran.js"></script>
 	<script src="<?= base_url() ?>assets/app/data_karyawan.js"></script>
 	<script src="<?= base_url() ?>assets/app/gaji_karyawan.js"></script>
+	<script src="<?= base_url() ?>assets/app/reset_data.js"></script>
 
 </body>
 </html>

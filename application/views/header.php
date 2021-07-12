@@ -106,6 +106,7 @@
 								<p>Dashboard</p>
 							</a>
 						</li>
+
 						<li <?=$this->uri->segment(1) == 'kategori_pemasukan' || $this->uri->segment(1) == 'kategori_pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
 							<a data-toggle="collapse" href="#kategori">
 								<i class="fas fa-layer-group"></i>
@@ -127,6 +128,7 @@
 								</ul>
 							</div>
 						</li>
+
 						<li <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
 							<a data-toggle="collapse" href="#transaksi">
 								<i class="fas fa-file-signature"></i>
@@ -172,6 +174,29 @@
 							</div>
 						</li>
 						<?php } ?>
+						
+						<li class="nav-item" >
+							<a data-toggle="collapse" href="#reset">
+								<i class="fas fa-undo"></i>
+								<p>Reset Data</p>
+								<span class="caret"></span>
+							</a>
+							<div id="reset" class="collapse">
+								<ul class="nav nav-collapse">
+									<li>
+										<a data-id="<?= $pengguna['id_pengguna']; ?>" id="reset_pemasukan">
+											<span class="sub-item">Reset Pemasukan</span>
+										</a>
+									</li>
+									<li>
+										<a data-id="<?= $pengguna['id_pengguna']; ?>" id="reset_pengeluaran">
+											<span class="sub-item">Reset Pengeluaran</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
 					</ul>
 				</div>
 			</div>

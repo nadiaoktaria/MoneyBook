@@ -167,4 +167,12 @@ class M_dashboard extends CI_Model {
         return $this->db->delete('karyawan', array('id_karyawan' => $id)); 
     }
 
+    public function reset_transaksi_pemasukan($id){
+        return $this->db->delete('pemasukan', array('id_pengguna' => $id)); 
+    }
+
+    public function reset_transaksi_pengeluaran($id){
+        return $this->db->delete('pengeluaran', array('id_pengguna' => $id)); 
+    }
+
 }

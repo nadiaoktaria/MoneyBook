@@ -77,7 +77,7 @@
 		$('input[name="edit_transPemasukan"]').attr("type", "hidden");
 		$('input[name="add_transPemasukan"]').attr("type", "text");
 
-		$("body").on("click", "input#add_trans_pemasukan", function () {
+		$("body").on("click", "input#add_transPemasukan", function () {
 			let id_kategori = $('select[name="kategori"] > option:selected').val();
 			let nominal = $('input[name="nominal"]').val().split(".").join("");
 			let catatan = $('input[name="catatan"]').val();
