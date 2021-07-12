@@ -22,9 +22,9 @@
             success: function (data) {
                 if (data.massage == "success") {
                     diagramMorris(data.dataMorris);
-                    PemasukanPengeluaran(data.totalPemasukan, data.totalPengeluaran);
                     diagramDonut(data.dataDonut);
-                    jumlahKategori(data.datakatPemasukan,data.datakatPengeluaran)
+                    jumlahKategori(data.datakatPemasukan,data.datakatPengeluaran);
+                    PemasukanPengeluaran(data.totalPemasukan, data.totalPengeluaran);
                 } 
             },
         });
