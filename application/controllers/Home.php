@@ -78,7 +78,6 @@ class Home extends CI_Controller {
                     'alamat' => $this->input->post('alamat', true),
                     'no_hp' => $this->input->post('no_hp', true),
                     'jenis' => $this->input->post('jenis', true),
-                    // 'jenis' => 'Personal',
                     'foto' => 'profile.png'
                 ];
                 $this->m_home->daftar_akun($data);
@@ -92,38 +91,41 @@ class Home extends CI_Controller {
         
         $email = 'rizkista@gmail.com';
 
-
-        // ini_set('SMTP', 'smtp.gmail.com'); //ketika sudah di hosting dihilangkan
-        // ini_set('smtp_port', 465); //ketika sudah di hosting dihilangkan
+        $data = [
+            "header" => "MoneyBook",
+            "logo" => base_url('assets/img/icon.svg'),
+            "email" => $email,
+            "url" => base_url('home/aktivasi_email'),
+            "link" => base_url('beranda'),
+        ];
 
         $config = [
             'protocol' => 'smtp',
-            'smtp_host' => 'localhost',
-            'smtp_port'   => 25,
-            'smtp_user' => 'rizkista@gmail.com',  // Email gmail
-            'smtp_pass'   => 'harnantow4e',  // Password gmail
-            'mailtype'  => 'html', 
-            'charset'   => 'iso-8859-1'
+            'smtp_host' => 'moneybook.my.id',
+            'smtp_port' => 465,
+            'smtp_user' => 'cs@moneybook.my.id',  // Email gmail
+            'smtp_pass' => 'moneybook123',  // Password gmail
+            'mailtype' => 'html', 
+            'charset'   => 'utf-8',
+            'wordwrap' => TRUE
         ];
 
         $this->load->library('email', $config);
-
-
         $this->email->set_newline("\r\n");
         $this->email->set_header('MIME-Version', '1.0; charset=utf-8');
         $this->email->set_header('Content-type', 'text/html');
-        $this->email->from('moneybook@gmail.com', 'MoneyBook Team');
+        $this->email->from('cs@moneybook.my.id', 'MoneyBook Team');
         $this->email->to($email);
         $this->email->subject('Aktivasi Akun');
+        $this->email->message($this->load->view('aktivasi', $data, TRUE));
+        
+        if($this->email->send()){
+            echo 'Mantab';
+        }else{
+            echo 'Gagal';
+        }
 
-        $data['header'] = 'MoneyBook';
-        $data['logo'] = base_url('assets/img/icon.svg');
-        $data['email'] = $email;
-        $data['url'] = base_url('home/aktivasi_email');
-        $data['link'] = base_url('beranda');
-        $this->email->message('Hello');
-        $this->email->send();
-        // $this->load->view('aktivasi.php', $data)
+        // $this->load->view('aktivasi', $data);
 	}
 
     public function logout(){

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Aktivasi Akun</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style type="text/css">
         @media screen {
             @font-face {
@@ -191,5 +190,4 @@
         </tr>
     </table>
 </body>
-
 </html>
