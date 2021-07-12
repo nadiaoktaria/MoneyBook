@@ -65,7 +65,7 @@
 		],
 	});
 
-	$("body").on("click", "#", function () {
+	$("body").on("click", "#tambah_pengeluaran", function () {
 		$("#TransaksiPengeluaranAdd").modal();
 
 		$('select[name="kategori"]').val("");
@@ -76,7 +76,7 @@
 		$('input[name="edit_transPengeluaran"]').attr("type", "hidden");
 		$('input[name="add_transPengeluaran"]').attr("type", "text");
 
-		$("body").on("click", "input#add_trans_pengeluaran", function () {
+		$("body").on("click", "input#add_transPengeluaran", function () {
 			let id_kategori = $('select[name="kategori"] > option:selected').val();
 			let nominal = $('input[name="nominal"]').val().split(".").join("");
 			let catatan = $('input[name="catatan"]').val();

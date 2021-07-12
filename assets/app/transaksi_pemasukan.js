@@ -66,7 +66,7 @@
 		],
 	});
 
-	$("body").on("click", "#", function () {
+	$("body").on("click", "#tambah_pemasukan", function () {
 		$("#TransaksiPemasukanAdd").modal();
 
 		$('select[name="kategori"]').val("");
