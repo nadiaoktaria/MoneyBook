@@ -130,6 +130,16 @@ class M_dashboard extends CI_Model {
         return $query;
     }
     
+    
+    public function get_pengeluaran_harian($id,$date){
+        $query = $this->db->select('sum(nominal) as total_pengeluaran')
+            ->from('pengeluaran')
+            ->where('id_pengguna',$id)
+            ->where('tanggal',$date)
+            ->get()->row_array();
+        return $query;
+    }
+    
     public function get_jumlah_kategori_pengeluaran($id,$firstDate,$lastDate){
         $query = $this->db->select('*')
         ->from('pengeluaran')
@@ -155,6 +165,14 @@ class M_dashboard extends CI_Model {
 
     public function data_karyawan_delete($id){
         return $this->db->delete('karyawan', array('id_karyawan' => $id)); 
+    }
+
+    public function reset_transaksi_pemasukan($id){
+        return $this->db->delete('pemasukan', array('id_pengguna' => $id)); 
+    }
+
+    public function reset_transaksi_pengeluaran($id){
+        return $this->db->delete('pengeluaran', array('id_pengguna' => $id)); 
     }
 
 }

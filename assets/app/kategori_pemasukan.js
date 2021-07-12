@@ -5,16 +5,17 @@
 		dataType: "json",
 		success: function (data) {
 			var html = "";
-			if(data.length < 1){
-				html = '<tr><td colspan="3" style="text-align:center">Belum ada kategori pemasukan!</td></tr>';
-			}else {
+			if (data.length < 1) {
+				html =
+					'<tr><td colspan="3" style="text-align:center">Belum ada kategori pemasukan!</td></tr>';
+			} else {
 				for (var i = 0; i < data.length; i++) {
 					html +=
 						"<tr>" +
-						'<td>' +
+						"<td>" +
 						data[i].kode +
 						"</td>" +
-						'<td>' +
+						"<td>" +
 						data[i].nama_kategori +
 						"</td>" +
 						"<td>" +
@@ -57,7 +58,9 @@
 							},
 						},
 					});
-					setTimeout(() => { window.location.reload() }, 1000);
+					setTimeout(() => {
+						window.location.reload();
+					}, 1000);
 				} else {
 					swal("Gagal", "Kategori Pemasukan Gagal di Tambah!", {
 						icon: "error",
@@ -104,7 +107,9 @@
 									},
 								},
 							});
-							setTimeout(() => { window.location.reload() }, 1000);
+							setTimeout(() => {
+								window.location.reload();
+							}, 1000);
 						} else {
 							swal("Gagal", "Kategori Pemasukan Gagal di Ganti!", {
 								icon: "error",
@@ -159,7 +164,9 @@
 										},
 									},
 								});
-								setTimeout(() => { window.location.reload() }, 1000);
+								setTimeout(() => {
+									window.location.reload();
+								}, 1000);
 							} else {
 								swal("Gagal", "Kategori Pemasukan Gagal di Hapus!", {
 									icon: "error",

@@ -88,6 +88,44 @@ class Home extends CI_Controller {
         }
 	}
 
+    public function aktivasi_email(){    
+        
+        $email = 'rizkista@gmail.com';
+
+
+        // ini_set('SMTP', 'smtp.gmail.com'); //ketika sudah di hosting dihilangkan
+        // ini_set('smtp_port', 465); //ketika sudah di hosting dihilangkan
+
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'localhost',
+            'smtp_port'   => 25,
+            'smtp_user' => 'rizkista@gmail.com',  // Email gmail
+            'smtp_pass'   => 'harnantow4e',  // Password gmail
+            'mailtype'  => 'html', 
+            'charset'   => 'iso-8859-1'
+        ];
+
+        $this->load->library('email', $config);
+
+
+        $this->email->set_newline("\r\n");
+        $this->email->set_header('MIME-Version', '1.0; charset=utf-8');
+        $this->email->set_header('Content-type', 'text/html');
+        $this->email->from('moneybook@gmail.com', 'MoneyBook Team');
+        $this->email->to($email);
+        $this->email->subject('Aktivasi Akun');
+
+        $data['header'] = 'MoneyBook';
+        $data['logo'] = base_url('assets/img/icon.svg');
+        $data['email'] = $email;
+        $data['url'] = base_url('home/aktivasi_email');
+        $data['link'] = base_url('beranda');
+        $this->email->message('Hello');
+        $this->email->send();
+        // $this->load->view('aktivasi.php', $data)
+	}
+
     public function logout(){
         $this->session->unset_userdata('email');
         $this->session->set_flashdata('success', 'Berhasil keluar dari akun Anda!');

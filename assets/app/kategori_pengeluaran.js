@@ -5,16 +5,17 @@
 		dataType: "json",
 		success: function (data) {
 			var html = "";
-			if(data.length < 1){
-				html = '<tr><td colspan="3" style="text-align:center">Belum ada kategori pengeluaran!</td></tr>';
-			}else {
+			if (data.length < 1) {
+				html =
+					'<tr><td colspan="3" style="text-align:center">Belum ada kategori pengeluaran!</td></tr>';
+			} else {
 				for (var i = 0; i < data.length; i++) {
 					html +=
 						"<tr>" +
-						'<td>' +
+						"<td>" +
 						data[i].kode +
 						"</td>" +
-						'<td>' +
+						"<td>" +
 						data[i].nama_kategori +
 						"</td>" +
 						"<td>" +

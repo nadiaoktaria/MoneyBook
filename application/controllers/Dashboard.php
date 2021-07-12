@@ -381,6 +381,7 @@ class Dashboard extends CI_Controller {
 				'id_kategori_pengeluaran' => $_POST['id_kategori'],
 				'nominal' => $_POST['nominal'],
 				'keterangan' => $_POST['catatan'],
+				'tanggal' => $_POST['tanggal'],
 			];
 
 			$this->m_dashboard->transaksi_pengeluaran_post($data);
@@ -468,6 +469,22 @@ class Dashboard extends CI_Controller {
 	public function hapus_data_karyawan(){
 		if(!empty($_POST['id'])){
 			$this->m_dashboard->data_karyawan_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function reset_trans_pemasukan(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->reset_transaksi_pemasukan($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function reset_trans_pengeluaran(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->reset_transaksi_pengeluaran($_POST['id']);
 			echo "success";
 			exit();
 		}
