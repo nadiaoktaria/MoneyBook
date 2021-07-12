@@ -381,6 +381,7 @@ class Dashboard extends CI_Controller {
 				'id_kategori_pengeluaran' => $_POST['id_kategori'],
 				'nominal' => $_POST['nominal'],
 				'keterangan' => $_POST['catatan'],
+				'tanggal' => $_POST['tanggal'],
 			];
 
 			$this->m_dashboard->transaksi_pengeluaran_post($data);

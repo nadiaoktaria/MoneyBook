@@ -130,6 +130,16 @@ class M_dashboard extends CI_Model {
         return $query;
     }
     
+    
+    public function get_pengeluaran_harian($id,$date){
+        $query = $this->db->select('sum(nominal) as total_pengeluaran')
+            ->from('pengeluaran')
+            ->where('id_pengguna',$id)
+            ->where('tanggal',$date)
+            ->get()->row_array();
+        return $query;
+    }
+    
     public function get_jumlah_kategori_pengeluaran($id,$firstDate,$lastDate){
         $query = $this->db->select('*')
         ->from('pengeluaran')

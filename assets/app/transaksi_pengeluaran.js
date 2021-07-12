@@ -1,5 +1,5 @@
 (function ($) {
-	const table_pengeluaran = $("#datatable_pengeluaran").DataTable({
+	var table_pengeluaran = $("#datatable_pengeluaran").DataTable({
 		ajax: {
 			url: "dashboard/get_transaksi_pengeluaran",
 			type: "GET",
@@ -15,6 +15,34 @@
 			searchPlaceholder: "search",
 			emptyTable: "Belum ada history pengeluaran!",
 		},
+		dom: '<"toolbardate_report"><Bfrtip><"bottom mb-4 text-center"l> ',
+		buttons: [
+			{
+				extend: "pdf",
+				className: "btn btn-secondary wid-max-select text-white",
+				text: '<i class="fas fa-file-pdf mr-2"></i> PDF',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4],
+				},
+				messageTop: "List Laporan Pengeluaran",
+			},
+			{
+				extend: "print",
+				className: "btn btn-secondary wid-max-select text-white",
+				text: '<i class="fas fa-print mr-2"></i> Print',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4],
+				},
+				messageTop: "List Laporan Pengeluaran",
+			},
+			{
+				className: "btn btn-secondary wid-max-select text-white",
+				text: '<i class="fas fa-sync-alt mr-2"></i> Refresh',
+				action: function (e, dt, node, config) {
+					table_pengeluaran.ajax.reload();
+				},
+			},
+		],
 		columns: [
 			{ data: "No" },
 			{ data: "Tanggal" },
@@ -37,46 +65,57 @@
 		],
 	});
 
-	$("body").on("click", "input#add_trans_pengeluaran", function () {
-		console.log("Berhasil Klik");
+	$("body").on("click", "#", function () {
+		$("#TransaksiPengeluaranAdd").modal();
 
-		let id_kategori = $('select[name="kategori"] > option:selected').val();
-		let nominal = $('input[name="nominal"]').val().split(".").join("");
-		let catatan = $('input[name="catatan"]').val();
+		$('select[name="kategori"]').val("");
+		$('input[name="nominal"]').val("");
+		$('input[name="catatan"]').val("");
+		$('input[name="tanggal"]').val(moment().format("YYYY-MM-DD"));
 
-		$.ajax({
-			url: "dashboard/tambah_tansaksi_pengeluaran",
-			method: "POST",
-			data: {
-				id_kategori: id_kategori,
-				nominal: nominal,
-				catatan: catatan,
-			},
-			success: function (response) {
-				if (response == "success") {
-					swal("Berhasil", "Transaksi pengeluaran Berhasil di Tambah!", {
-						icon: "success",
-						buttons: {
-							confirm: {
-								className: "btn btn-success",
+		$('input[name="edit_transPengeluaran"]').attr("type", "hidden");
+		$('input[name="add_transPengeluaran"]').attr("type", "text");
+
+		$("body").on("click", "input#add_trans_pengeluaran", function () {
+			let id_kategori = $('select[name="kategori"] > option:selected').val();
+			let nominal = $('input[name="nominal"]').val().split(".").join("");
+			let catatan = $('input[name="catatan"]').val();
+			let tanggal = $('input[name="tanggal"]').val();
+
+			$.ajax({
+				url: "dashboard/tambah_tansaksi_pengeluaran",
+				method: "POST",
+				data: {
+					id_kategori: id_kategori,
+					nominal: nominal,
+					catatan: catatan,
+					tanggal: tanggal,
+				},
+				success: function (response) {
+					if (response == "success") {
+						swal("Berhasil", "Transaksi Pengeluaran Berhasil di Tambah!", {
+							icon: "success",
+							buttons: {
+								confirm: {
+									className: "btn btn-success",
+								},
 							},
-						},
-					});
-
-					setTimeout(() => {
-						window.location.reload();
-					}, 1000);
-				} else {
-					swal("Gagal", "Transaksi pengeluaran Gagal di Tambah!", {
-						icon: "error",
-						buttons: {
-							confirm: {
-								className: "btn btn-danger",
+						});
+						setTimeout(() => {
+							window.location.reload();
+						}, 1000);
+					} else {
+						swal("Gagal", "Transaksi Pengeluaran Gagal di Tambah!", {
+							icon: "error",
+							buttons: {
+								confirm: {
+									className: "btn btn-danger",
+								},
 							},
-						},
-					});
-				}
-			},
+						});
+					}
+				},
+			});
 		});
 	});
 
@@ -84,15 +123,19 @@
 		"click",
 		"#edit_trans_pengeluaran",
 		function () {
+			$("#TransaksiPengeluaranAdd").modal();
+
 			var id_pengeluaran = $(this).data("id");
 			var data = table_pengeluaran.row($(this).parents("tr")).data();
 			let nominal = data["Nominal"].split("Rp ").join("");
 			let catatan = data["Keterangan"];
+			let tanggal = data["Tanggal"];
 			let id_kategori = data["id_kategori"];
 
 			$('select[name="kategori"]').val(id_kategori);
 			$('input[name="nominal"]').val(nominal);
 			$('input[name="catatan"]').val(catatan);
+			$('input[name="tanggal"]').val(tanggal);
 
 			$('input[name="edit_transPengeluaran"]').attr("type", "text");
 			$('input[name="add_transPengeluaran"]').attr("type", "hidden");
@@ -103,6 +146,7 @@
 				).val();
 				let get_nominal = $('input[name="nominal"]').val().split(".").join("");
 				let get_catatan = $('input[name="catatan"]').val();
+				let get_tanggal = $('input[name="tanggal"]').val();
 
 				$.ajax({
 					url: "dashboard/edit_transaksi_pengeluaran",
@@ -112,6 +156,7 @@
 						id_kategori: get_id_kategori,
 						nominal: get_nominal,
 						catatan: get_catatan,
+						tanggal: get_tanggal,
 					},
 					success: function (response) {
 						if (response == "success") {
@@ -123,12 +168,11 @@
 									},
 								},
 							});
-
 							setTimeout(() => {
 								window.location.reload();
 							}, 1000);
 						} else {
-							swal("Gagal", "Kategori pengeluaran Gagal di Ganti!", {
+							swal("Gagal", "Kategori Pengeluaran Gagal di Ganti!", {
 								icon: "error",
 								buttons: {
 									confirm: {

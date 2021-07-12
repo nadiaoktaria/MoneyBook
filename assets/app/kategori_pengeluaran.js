@@ -5,16 +5,17 @@
 		dataType: "json",
 		success: function (data) {
 			var html = "";
-			if(data.length < 1){
-				html = '<tr><td colspan="3" style="text-align:center">Belum ada kategori pengeluaran!</td></tr>';
-			}else {
+			if (data.length < 1) {
+				html =
+					'<tr><td colspan="3" style="text-align:center">Belum ada kategori pengeluaran!</td></tr>';
+			} else {
 				for (var i = 0; i < data.length; i++) {
 					html +=
 						"<tr>" +
-						'<td>' +
+						"<td>" +
 						data[i].kode +
 						"</td>" +
-						'<td>' +
+						"<td>" +
 						data[i].nama_kategori +
 						"</td>" +
 						"<td>" +
@@ -96,6 +97,69 @@
 						id: id_kategori,
 						kode: kode_kategori,
 						nama: nama_kategori,
+					},
+					success: function (response) {
+						if (response == "success") {
+							swal("Berhasil", "Kategori pengeluaran Berhasil di Ganti!", {
+								icon: "success",
+								buttons: {
+									confirm: {
+										className: "btn btn-success",
+									},
+								},
+							});
+
+							setTimeout(() => {
+								window.location.reload();
+							}, 1000);
+						} else {
+							swal("Gagal", "Kategori pengeluaran Gagal di Ganti!", {
+								icon: "error",
+								buttons: {
+									confirm: {
+										className: "btn btn-danger",
+									},
+								},
+							});
+						}
+					},
+				});
+			});
+		}
+	);
+
+	$("#datatable_pengeluaran tbody").on(
+		"click",
+		"#edit_trans_pengeluaran",
+		function () {
+			var id_pengeluaran = $(this).data("id");
+			var data = table_pengeluaran.row($(this).parents("tr")).data();
+			let nominal = data["Nominal"].split("Rp ").join("");
+			let catatan = data["Keterangan"];
+			let id_kategori = data["id_kategori"];
+
+			$('select[name="kategori"]').val(id_kategori);
+			$('input[name="nominal"]').val(nominal);
+			$('input[name="catatan"]').val(catatan);
+
+			$('input[name="edit_transPengeluaran"]').attr("type", "text");
+			$('input[name="add_transPengeluaran"]').attr("type", "hidden");
+
+			$("body").on("click", "input#edit_transPengeluaran", function () {
+				let get_id_kategori = $(
+					'select[name="kategori"] option:selected'
+				).val();
+				let get_nominal = $('input[name="nominal"]').val().split(".").join("");
+				let get_catatan = $('input[name="catatan"]').val();
+
+				$.ajax({
+					url: "dashboard/edit_transaksi_pengeluaran",
+					method: "POST",
+					data: {
+						id_pengeluaran: id_pengeluaran,
+						id_kategori: get_id_kategori,
+						nominal: get_nominal,
+						catatan: get_catatan,
 					},
 					success: function (response) {
 						if (response == "success") {
