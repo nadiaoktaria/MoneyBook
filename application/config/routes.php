@@ -67,3 +67,4 @@ $route['login'] = 'home/login';
 $route['logout'] = 'home/logout';
 $route['register'] = 'home/register';
 $route['reset_password'] = 'home/reset_password';
+$route['aktivasi_email'] = 'home/aktivasi_email';
