@@ -56,8 +56,31 @@
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 				<div class="container-fluid">
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="text-white  nav-item mt-3 mr-4">
+						<li class="text-white nav-item mt-3">
 							<p id="realtime"></p>
+						</li>
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link dropdown-toggle" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-bell"></i>
+								<span class="notification">1</span>
+							</a>
+							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+								<li><div class="dropdown-title">Anda memiliki 1 notifikasi!</div></li>
+								<li>
+									<div class="notif-scroll scrollbar-outer">
+										<div class="notif-center">
+											<a href="#">
+												<div class="notif-icon notif-success"> <i class="fas fa-file-invoice-dollar"></i> </div>
+												<div class="notif-content">
+													<span class="subject">Pengingat Utang</span>
+													<span class="block">Pinjem uang sama Nadia</span>
+													<span class="time">deadline : 2021-07-15</span> 
+												</div>
+											</a>
+										</div>
+									</div>
+								</li>
+							</ul>
 						</li>
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -131,7 +154,7 @@
 
 						<li <?=$this->uri->segment(1) == 'pemasukan' || $this->uri->segment(1) == 'pengeluaran'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
 							<a data-toggle="collapse" href="#transaksi">
-								<i class="fas fa-file-signature"></i>
+								<i class="fas fa-piggy-bank"></i>
 								<p>Transaksi</p>
 								<span class="caret"></span>
 							</a>
@@ -145,6 +168,28 @@
 									<li <?=$this->uri->segment(1) == 'pengeluaran' ? 'class="active"' : '' ?>>
 										<a href="<?= base_url('pengeluaran') ?>">
 											<span class="sub-item">Pengeluaran</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						
+						<li <?=$this->uri->segment(1) == 'utang' || $this->uri->segment(1) == 'piutang'  ? 'class="nav-item active submenu"' : 'class="nav-item" ' ?>>
+							<a data-toggle="collapse" href="#utang">
+								<i class="fas fa-file-invoice-dollar"></i>
+								<p>Utang Piutang</p>
+								<span class="caret"></span>
+							</a>
+							<div id="utang" <?=$this->uri->segment(1) == 'utang' || $this->uri->segment(1) == 'piutang'  ? 'class="collapse show"' : 'class="collapse"' ?>>
+								<ul class="nav nav-collapse">
+									<li <?=$this->uri->segment(1) == 'utang' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('utang') ?>">
+											<span class="sub-item">Utang</span>
+										</a>
+									</li>
+									<li <?=$this->uri->segment(1) == 'piutang' ? 'class="active"' : '' ?>>
+										<a href="<?= base_url('piutang') ?>">
+											<span class="sub-item">Piutang</span>
 										</a>
 									</li>
 								</ul>
@@ -177,7 +222,7 @@
 						
 						<li class="nav-item" >
 							<a data-toggle="collapse" href="#reset">
-								<i class="fas fa-undo"></i>
+								<i class="fas fa-reply-all"></i>
 								<p>Reset Data</p>
 								<span class="caret"></span>
 							</a>

@@ -58,12 +58,30 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function pengeluaran(){        
-		$data_title['title'] = 'pengeluaran'; 
+		$data_title['title'] = 'Pengeluaran'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
 		$kategori['kategori'] = $this->m_dashboard->kategori_pengeluaran_get($profile['pengguna']['id_pengguna']);
 
 		$this->load->view('header.php', $data_title + $profile);
         $this->load->view('dashboard/pengeluaran.php',$kategori);
+        $this->load->view('footer.php');
+	}
+
+	public function utang(){        
+		$data_title['title'] = 'Utang'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/utang.php');
+        $this->load->view('footer.php');
+	}
+
+	public function piutang(){        
+		$data_title['title'] = 'Piutang'; 
+		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+
+		$this->load->view('header.php', $data_title + $profile);
+        $this->load->view('dashboard/piutang.php');
         $this->load->view('footer.php');
 	}
 
@@ -116,7 +134,6 @@ class Dashboard extends CI_Controller {
 				$config['create_thumb'] = FALSE;
 				$config['maintain_ratio'] = TRUE;
 				$config['quality'] = '100%';
-
 				$config['new_image'] = './assets/img/profile/' . $uploadData['file_name'];
 				$this->load->library('image_lib', $config);
 				$this->image_lib->resize();
@@ -421,11 +438,11 @@ class Dashboard extends CI_Controller {
 			$no++;
 			$row = [];
 			$row['No'] = $no;
-			$row['Nama'] = $list->nama;
+			$row['Nama'] = $list->nama_karyawan;
 			$row['NIK'] = $list->nik;
 			$row['Jabatan'] = $list->jabatan;
-			$row['NoHp'] = $list->no_hp;
-			$row['Alamat'] = $list->alamat;
+			$row['NoHp'] = $list->no_hp_karyawan;
+			$row['Alamat'] = $list->alamat_karyawan;
 			$row['Aksi'] = $list->id_karyawan;
 			$data[] = $row;
 		}
@@ -439,11 +456,11 @@ class Dashboard extends CI_Controller {
 			$pengguna =  $this->m_dashboard->get_data_pengguna();
 			$data = [
 				'id_pengguna' => $pengguna['id_pengguna'],
-				'nama' => $_POST['nama'],
+				'nama_karyawan' => $_POST['nama'],
 				'nik' => $_POST['nik'],
 				'jabatan' => $_POST['jabatan'],
-				'no_hp' => $_POST['no_hp'],
-				'alamat' => $_POST['alamat'],
+				'no_hp_karyawan' => $_POST['no_hp'],
+				'alamat_karyawan' => $_POST['alamat'],
 			];
 			$this->m_dashboard->data_karyawan_post($data);
 			echo "success";
@@ -454,11 +471,11 @@ class Dashboard extends CI_Controller {
 	public function edit_data_karyawan(){    
 		if(!empty($_POST['nama']) && !empty($_POST['nik']) && !empty($_POST['jabatan']) && !empty($_POST['no_hp']) && !empty($_POST['alamat'])){
 			$data = [
-				'nama' => $_POST['nama'],
+				'nama_karyawan' => $_POST['nama'],
 				'nik' => $_POST['nik'],
 				'jabatan' => $_POST['jabatan'],
-				'no_hp' => $_POST['no_hp'],
-				'alamat' => $_POST['alamat'],
+				'no_hp_karyawan' => $_POST['no_hp'],
+				'alamat_karyawan' => $_POST['alamat'],
 			];
 			$this->m_dashboard->data_karyawan_edit($_POST['id_karyawan'],$data);
 			echo "success";

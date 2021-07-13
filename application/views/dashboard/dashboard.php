@@ -83,8 +83,8 @@
                     <div class="card-title">Kategori Pemasukan</div>
                 </div>
                 <div class="card-body p-0" style="min-height: 330px; max-height: 330px">
-                    <div class="table-responsive">
-                        <table id="jumlah_kategori_pemasukan" class="table tableBodyScroll">
+                    <div class="table-responsive tableBodyScroll">
+                        <table id="jumlah_kategori_pemasukan" class="table">
                             <tbody>
                                 
                             </tbody>
@@ -99,8 +99,8 @@
                     <div class="card-title">Kategori Pengeluaran</div>
                 </div>
                 <div class="card-body p-0" style="min-height: 330px; max-height: 330px">
-                    <div class="table-responsive">
-                        <table id="jumlah_kategori_pengeluaran" class="table tableBodyScroll">
+                    <div class="table-responsive tableBodyScroll">
+                        <table id="jumlah_kategori_pengeluaran" class="table">
                             <tbody>
 
                             </tbody>

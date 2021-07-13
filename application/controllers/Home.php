@@ -18,7 +18,7 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
-			$this->load->view('home/login.php');
+			$this->load->view('home/login');
         } else {
             $this->login();
         }
@@ -62,14 +62,14 @@ class Home extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         
         if ($this->form_validation->run() == false) {
-            $this->load->view('home/register.php');
+            $this->load->view('home/register');
         } else {
             $email = $this->input->post('email');
             $pengguna = $this->m_home->cek_pengguna($email);
 
             if ($pengguna) {
                 $this->session->set_flashdata('error', 'Email sudah terdaftar!');
-                redirect('home/register');
+                redirect('register');
             } else {
                 $data = [
                     'nama' => htmlspecialchars($this->input->post('nama', true)),
@@ -80,52 +80,54 @@ class Home extends CI_Controller {
                     'jenis' => $this->input->post('jenis', true),
                     'foto' => 'profile.png'
                 ];
-                $this->m_home->daftar_akun($data);
-                $this->session->set_flashdata('success', 'Akun berhasil dibuat, silahkan masuk!');
-                redirect('home');
+                $simpanData = $this->m_home->daftar_akun($data);
+                if($simpanData){
+                    $data = [
+                        "email" => $email,
+                        "url" => base_url('home/aktivasiakun?email='.$email)
+                    ];
+                    
+                    $config = [
+                        'protocol' => 'smtp',
+                        'smtp_host' => 'ssl://moneybook.my.id',
+                        'smtp_port' => 465,
+                        'smtp_user' => 'cs@moneybook.my.id',
+                        'smtp_pass' => 'moneybook123',
+                        'mailtype' => 'html', 
+                        'charset'   => 'iso-8859-1'
+                    ];
+            
+                    $this->load->library('email', $config);
+                    $this->email->set_newline("\r\n");
+                    $this->email->set_mailtype("html");
+                    $this->email->set_header('MIME-Version', '1.0; charset=utf-8');
+                    $this->email->from('cs@moneybook.my.id', 'MoneyBook Team');
+                    $this->email->to($email);
+                    $this->email->subject('Aktivasi Akun');
+                    $this->email->message($this->load->view('aktivasi', $data, true));
+                    $this->email->send();
+                    $this->session->set_flashdata('success', 'Link Aktivasi Akun berhasil dikirim ke ' .$email.'');
+                    redirect('home');
+                }else{
+                    $this->session->set_flashdata('error', 'Gagal menyimpan data ke database!');
+                    redirect('register');
+                }
             }
         }
 	}
 
-    public function aktivasi_email(){    
-        
-        $email = 'rizkista@gmail.com';
-
-        $data = [
-            "header" => "MoneyBook",
-            "logo" => base_url('assets/img/icon.svg'),
-            "email" => $email,
-            "url" => base_url('home/aktivasi_email'),
-            "link" => base_url('beranda'),
-        ];
-
-        $config = [
-            'protocol' => 'smtp',
-            'smtp_host' => 'moneybook.my.id',
-            'smtp_port' => 465,
-            'smtp_user' => 'cs@moneybook.my.id',  // Email gmail
-            'smtp_pass' => 'moneybook123',  // Password gmail
-            'mailtype' => 'html', 
-            'charset'   => 'utf-8',
-            'wordwrap' => TRUE
-        ];
-
-        $this->load->library('email', $config);
-        $this->email->set_newline("\r\n");
-        $this->email->set_header('MIME-Version', '1.0; charset=utf-8');
-        $this->email->set_header('Content-type', 'text/html');
-        $this->email->from('cs@moneybook.my.id', 'MoneyBook Team');
-        $this->email->to($email);
-        $this->email->subject('Aktivasi Akun');
-        $this->email->message($this->load->view('aktivasi', $data, TRUE));
-        
-        if($this->email->send()){
-            echo 'Mantab';
+    public function aktivasiakun(){    
+	    $email  = $this->input->get('email'); 
+        $data['status_aktif '] = '1';
+        $updateAkun = $this->m_home->update_akun($email,$data);
+        if($updateAkun){
+            $this->session->set_flashdata('success', 'Akun Anda berhasil di aktivasi!');
+            redirect('home');
         }else{
-            echo 'Gagal';
+            $this->session->set_flashdata('error', 'Akun anda gagal di aktifasi!');
+            redirect('home');
         }
-
-        // $this->load->view('aktivasi', $data);
+        
 	}
 
     public function logout(){
@@ -137,4 +139,16 @@ class Home extends CI_Controller {
 	public function reset_password(){       
         $this->load->view('home/reset_password.php');
 	}
+
+    public function test(){
+        $token = [
+            'id' => '1',
+            'time' => time(),
+            'email' => 'demo@gmail.com'
+        ];
+        // $output = AUTHORIZATION::generateToken($token);
+
+        
+		echo json_encode($token);
+    }
 }

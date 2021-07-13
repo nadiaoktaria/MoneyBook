@@ -1,5 +1,7 @@
 .tableBodyScroll {
-	display: block;
-	max-height: 350px;
-	overflow-y: scroll;
+	max-height: 330px;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #48abf7  rgb(243, 243, 243);
+	scrollbar-width: thin;
 }

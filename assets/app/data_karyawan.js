@@ -39,7 +39,7 @@
 				className: "btn btn-secondary wid-max-select text-white",
 				text:'<i class="fas fa-sync-alt mr-2"></i> Refresh',
 				action:function(e, dt, node, config){
-					table_pemasukan.ajax.reload();
+					table_karyawan.ajax.reload();
 				},
 			}
 		],
