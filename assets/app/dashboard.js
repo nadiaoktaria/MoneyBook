@@ -1,6 +1,7 @@
 (function ($) {
     var this_month = moment().format('MM');
-    filter(this_month);
+    var this_years = moment().format('YYYY');
+    filter(this_month,this_years);
 
     $("#daterange").datepicker( {
         format: "mm-yyyy",
@@ -10,15 +11,19 @@
         $(this).datepicker('hide');
         var numb = e.date.getMonth()+1;
         this_month = ( numb < 10 ? '0' : '') + numb;
-        filter(this_month);
+        this_years = e.date.getYear()+1900;
+        filter(this_month,this_years);
     });
 
-    function filter(month){
+    function filter(month,years){
         $.ajax({
             url: "dashboard/ajax_dashboard",
             method: "POST",
             dataType: 'json',
-            data: { month: month },
+            data: { 
+                month: month,
+                years: years
+            },
             success: function (data) {
                 if (data.massage == "success") {
                     diagramMorris(data.dataMorris);

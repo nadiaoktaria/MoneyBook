@@ -79,9 +79,10 @@ class Dashboard extends CI_Controller {
 	public function piutang(){        
 		$data_title['title'] = 'Piutang'; 
 		$profile['pengguna'] =  $this->m_dashboard->get_data_pengguna();
+		$debitur['debitur'] = $this->m_dashboard->debitur_get($profile['pengguna']['id_pengguna']);
 
 		$this->load->view('header.php', $data_title + $profile);
-        $this->load->view('dashboard/piutang.php');
+        $this->load->view('dashboard/piutang.php',$debitur);
         $this->load->view('footer.php');
 	}
 
@@ -154,12 +155,13 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function ajax_dashboard(){
-		if(!empty($_POST['month'])){
+		if(!empty($_POST['month']) && !empty($_POST['years']) ){
 			$pengguna =  $this->m_dashboard->get_data_pengguna();
 			$month = $_POST['month'];
-			$jumtanggal = cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
-			$first_date = date('Y-m-d', mktime(0,0,0,$month,01,date('Y')));
-			$last_date = date('Y-m-d', mktime(0,0,0,$month,$jumtanggal,date('Y')));
+			$years = $_POST['years'];
+			$jumtanggal = cal_days_in_month(CAL_GREGORIAN,$month,$years);
+			$first_date = date('Y-m-d', mktime(0,0,0,$month,01,$years));
+			$last_date = date('Y-m-d', mktime(0,0,0,$month,$jumtanggal,$years));
 
 			//--------------------Total Pemasukan & Pengeluaran & Diagram Donut--------------------//
 			$pemasukan = $this->m_dashboard->total_pemasukan($pengguna['id_pengguna'],$first_date,$last_date);
@@ -171,7 +173,7 @@ class Dashboard extends CI_Controller {
 			//--------------------Diagram Morris--------------------//
 			$data_morris = array();
 			for($i=1; $i <= $jumtanggal; $i++){
-				$tanggal= date('Y-m-d', mktime(0,0,0,$month,$i,date('Y')));
+				$tanggal= date('Y-m-d', mktime(0,0,0,$month,$i,$years));
 				$rows = [];
 				$rows['tanggal'] = $tanggal;
 				$pemasukan_harian = $this->m_dashboard->get_pemasukan_harian($pengguna['id_pengguna'],$tanggal);
@@ -423,6 +425,114 @@ class Dashboard extends CI_Controller {
 				'keterangan' => $_POST['catatan'],
 			];
 			$this->m_dashboard->transaksi_pengeluaran_edit($_POST['id_pengeluaran'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function get_debitur(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$debitur = $this->m_dashboard->debitur_get($pengguna['id_pengguna']);
+
+		$data = [];
+		$no = 0;
+		foreach ($debitur as $list) {
+			$no++;
+			$row = [];
+			$row['No'] = $no;
+			$row['Nama'] = $list->nama_debitur;
+			$row['NoHp'] = $list->no_hp_debitur;
+			$row['Alamat'] = $list->alamat_debitur;
+			$row['Aksi'] = $list->id_debitur;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function tambah_debitur(){
+		if(!empty($_POST['nama']) && !empty($_POST['no_hp']) && !empty($_POST['alamat'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'nama_debitur' => $_POST['nama'],
+				'no_hp_debitur' => $_POST['no_hp'],
+				'alamat_debitur' => $_POST['alamat'],
+			];
+
+			$this->m_dashboard->debitur_post($data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_debitur(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->debitur_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function edit_debitur(){    
+		if(!empty($_POST['id_debitur']) && !empty($_POST['nama']) && !empty($_POST['no_hp']) && !empty($_POST['alamat'])){
+			$data = [
+				'nama_debitur' => $_POST['nama'],
+				'no_hp_debitur' => $_POST['no_hp'],
+				'alamat_debitur' => $_POST['alamat'],
+			];
+			$this->m_dashboard->debitur_edit($_POST['id_debitur'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function get_piutang(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$piutang = $this->m_dashboard->piutang_get($pengguna['id_pengguna']);
+
+		$data = [];
+		$no = 0;
+		foreach ($piutang as $list) {
+			$no++;
+			$row = [];
+			$row['No'] = $no;
+			$row['Debitur'] = $list->nama_debitur;
+			$row['Piutang_Awal'] = 'Rp' . number_format($list->piutang_awal, 0, "", ".");
+			$row['Jumlah_Bayar'] = 'Rp' . number_format($list->total_piutang, 0, "", ".");
+			$row['Sisa_Piutang'] = 'Rp' . number_format($list->sisa_piutang, 0, "", ".");
+			$row['Keterangan'] = $list->keterangan;
+			$row['Tanggal_Piutang'] = $list->tanggal_piutang;
+			$row['Tanggal_Tempo'] = $list->tanggal_tempo;
+			$row['Aksi'] = $list->id_piutang;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function tambah_piutang(){
+		if(!empty($_POST['id_debitur']) && !empty($_POST['piutang_awal']) && !empty($_POST['jumlah_bayar']) 
+		&& !empty($_POST['keterangan']) && !empty($_POST['tanggal_piutang']) && !empty($_POST['tanggal_tempo'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'id_debitur' => $_POST['id_debitur'],
+				'piutang_awal' => $_POST['piutang_awal'],
+				'total_piutang' => $_POST['jumlah_bayar'],
+				'sisa_piutang' => $_POST['jumlah_bayar'],
+				'keterangan' => $_POST['keterangan'],
+				'tanggal_piutang' => $_POST['tanggal_piutang'],
+				'tanggal_tempo' => $_POST['tanggal_tempo'],
+			];
+
+			$this->m_dashboard->piutang_post($data);
 			echo "success";
 			exit();
 		}

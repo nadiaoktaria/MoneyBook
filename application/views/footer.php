@@ -46,6 +46,8 @@
 	<script src="<?= base_url() ?>assets/app/kategori_pengeluaran.js"></script>
 	<script src="<?= base_url() ?>assets/app/transaksi_pemasukan.js"></script>
 	<script src="<?= base_url() ?>assets/app/transaksi_pengeluaran.js"></script>
+	<script src="<?= base_url() ?>assets/app/utang.js"></script>
+	<script src="<?= base_url() ?>assets/app/piutang.js"></script>
 	<script src="<?= base_url() ?>assets/app/data_karyawan.js"></script>
 	<script src="<?= base_url() ?>assets/app/gaji_karyawan.js"></script>
 	<script src="<?= base_url() ?>assets/app/reset_data.js"></script>

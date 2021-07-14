@@ -25,7 +25,7 @@
                                 <th>Nama</th>
                                 <th>NIK</th>
                                 <th>Jabatan</th>
-                                <th>NoHp</th>
+                                <th>No Hp</th>
                                 <th>Alamat</th>
                                 <th>Aksi</th>
                             </tr>
