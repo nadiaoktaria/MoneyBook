@@ -496,24 +496,37 @@ class Dashboard extends CI_Controller {
 
 		$data = [];
 		$no = 0;
+		$sisa = 0;
+		$status = "";
 		foreach ($piutang as $list) {
+			$cek = $this->m_dashboard->cek_total_pembayaran_piutang($list->id_piutang);
+			// $sisa = intval(($list->total_piutang)-($cek['total_bayar_piutang']));
+			// if($sisa<=0){
+			// 	// $this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Lunas']);
+			// 	$status = 'Lunas';
+			// }else{
+			// 	// $this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Belum Lunas']);
+			// 	$status = 'Belum Lunas';
+			// }
+			
 			$no++;
 			$row = [];
 			$row['No'] = $no;
 			$row['Debitur'] = $list->nama_debitur;
 			$row['Piutang_Awal'] = 'Rp' . number_format($list->piutang_awal, 0, "", ".");
 			$row['Jumlah_Bayar'] = 'Rp' . number_format($list->total_piutang, 0, "", ".");
-			$row['Sisa_Piutang'] = 'Rp' . number_format($list->sisa_piutang, 0, "", ".");
+			$row['Sisa_Piutang'] = 'Rp' . number_format($sisa, 0, "", ".");
 			$row['Keterangan'] = $list->keterangan;
 			$row['Tanggal_Piutang'] = $list->tanggal_piutang;
 			$row['Tanggal_Tempo'] = $list->tanggal_tempo;
+			$row['Status'] = $status;
 			$row['Aksi'] = $list->id_piutang;
+			$row['id_debitur'] = $list->id_debitur;
 			$data[] = $row;
-			
 		}
 
 		$output = [ "data" => $data ];
-		echo json_encode($output);
+		echo json_encode($cek);
 	}
 
 	public function tambah_piutang(){
@@ -526,10 +539,10 @@ class Dashboard extends CI_Controller {
 				'id_debitur' => $_POST['id_debitur'],
 				'piutang_awal' => $_POST['piutang_awal'],
 				'total_piutang' => $_POST['jumlah_bayar'],
-				'sisa_piutang' => $_POST['jumlah_bayar'],
 				'keterangan' => $_POST['keterangan'],
 				'tanggal_piutang' => $_POST['tanggal_piutang'],
 				'tanggal_tempo' => $_POST['tanggal_tempo'],
+				'status_piutang' => 'Belum Lunas',
 			];
 
 			$this->m_dashboard->piutang_post($data);
@@ -537,6 +550,87 @@ class Dashboard extends CI_Controller {
 			exit();
 		}
 	}
+
+	public function edit_piutang(){    
+		if(!empty($_POST['id_piutang']) && !empty($_POST['piutang_awal']) && !empty($_POST['jumlah_bayar']) 
+		&& !empty($_POST['keterangan']) && !empty($_POST['tanggal_piutang']) && !empty($_POST['tanggal_tempo'])){
+			$data = [
+				'piutang_awal' => $_POST['piutang_awal'],
+				'total_piutang' => $_POST['jumlah_bayar'],
+				'keterangan' => $_POST['keterangan'],
+				'tanggal_piutang' => $_POST['tanggal_piutang'],
+				'tanggal_tempo' => $_POST['tanggal_tempo'],
+			];
+			$this->m_dashboard->piutang_edit($_POST['id_piutang'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_piutang(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->piutang_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function bayar_piutang(){
+		if(!empty($_POST['id_piutang']) && !empty($_POST['nama_debitur']) && !empty($_POST['bayar_piutang']) && !empty($_POST['tanggal_bayar'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'id_piutang' => $_POST['id_piutang'],
+				'nama_debitur' => $_POST['nama_debitur'],
+				'bayar_piutang' => $_POST['bayar_piutang'],
+				'tanggal_pembayaran_piutang' => $_POST['tanggal_bayar'],
+			];
+
+			$this->m_dashboard->bayar_piutang_post($data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function get_pembayaran_piutang(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$pembayaran_piutang = $this->m_dashboard->pembayaran_piutang_get($pengguna['id_pengguna']);
+
+		$data = [];
+		foreach ($pembayaran_piutang as $list) {
+			$row['Tanggal'] = $list->tanggal_pembayaran_piutang;
+			$row['Debitur'] = $list->nama_debitur;
+			$row['Nominal'] = 'Rp' . number_format($list->bayar_piutang, 0, "", ".");
+			$row['Aksi'] = $list->id_pembayaran_piutang;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function edit_pembayaran_piutang(){    
+		if(!empty($_POST['id_pembayaran_piutang']) && !empty($_POST['nominal_bayar']) && !empty($_POST['tanggal_bayar'])){
+			$data = [
+				'bayar_piutang' => $_POST['nominal_bayar'],
+				'tanggal_pembayaran_piutang' => $_POST['tanggal_bayar'],
+			];
+			$this->m_dashboard->pembayaran_piutang_edit($_POST['id_pembayaran_piutang'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_pembayaran_piutang(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->pembayaran_piutang_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
 
 	public function get_data_karyawan(){
 		$pengguna = $this->m_dashboard->get_data_pengguna();

@@ -139,16 +139,4 @@ class Home extends CI_Controller {
 	public function reset_password(){       
         $this->load->view('home/reset_password.php');
 	}
-
-    public function test(){
-        $token = [
-            'id' => '1',
-            'time' => time(),
-            'email' => 'demo@gmail.com'
-        ];
-        // $output = AUTHORIZATION::generateToken($token);
-
-        
-		echo json_encode($token);
-    }
 }

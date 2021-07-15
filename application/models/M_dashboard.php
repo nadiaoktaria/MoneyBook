@@ -107,6 +107,15 @@ class M_dashboard extends CI_Model {
         return $this->db->delete('debitur', array('id_debitur' => $id)); 
     }
 
+    public function cek_total_pembayaran_piutang($id){
+        $query = $this->db
+        ->from('pembayaran_piutang')
+        ->where('id_pembayaran_piutang',$id)
+        ->select('sum(bayar_piutang) as total_bayar_piutang')
+        ->get()->result();
+        return $query;
+    }
+
     public function piutang_get($id){
         $query = $this->db->select('*')
         ->from('piutang')
@@ -119,6 +128,31 @@ class M_dashboard extends CI_Model {
     public function piutang_post($data){
 		$this->db->insert('piutang', $data);
 	}
+    
+    public function piutang_edit($id,$data){
+        $this->db->where('id_piutang', $id)->update('piutang', $data); 
+    } 
+
+    public function piutang_delete($id){
+        $this->db->delete('pembayaran_piutang', array('id_piutang' => $id)); 
+        $this->db->delete('piutang', array('id_piutang' => $id)); 
+    }
+
+    public function pembayaran_piutang_get($id){
+        return $this->db->get_where('pembayaran_piutang', ['id_pengguna' => $id])->result();
+    }
+
+    public function bayar_piutang_post($data){
+		$this->db->insert('pembayaran_piutang', $data);
+	}
+    
+    public function pembayaran_piutang_edit($id,$data){
+        $this->db->where('id_pembayaran_piutang', $id)->update('pembayaran_piutang', $data); 
+    } 
+
+    public function pembayaran_piutang_delete($id){
+        $this->db->delete('pembayaran_piutang', array('id_pembayaran_piutang' => $id)); 
+    }
     
     public function total_pemasukan($id,$firstDate,$lastDate){
         $query = $this->db->select('sum(nominal) as total_pemasukan')
