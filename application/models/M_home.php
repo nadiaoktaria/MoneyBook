@@ -16,4 +16,15 @@ class M_home extends CI_Model {
         return $this->db->get_where('pengguna', ['email' => $email])->row_array();
     }
 
+    public function getAllUtang(){
+        $query = $this->db
+        ->select('nama, email, kreditur, jumlah_utang, jumlah_bayar, tanggal_utang, tanggal_tempo, keterangan, status_utang')
+        ->from('utang')
+        ->where('utang.status_utang', 'Belum Lunas')
+        ->where('utang.pengingat', 'Aktif')
+        ->join('pengguna','pengguna.id_pengguna = utang.id_pengguna')
+        ->get()->result();
+        return $query;
+    }
+
 }

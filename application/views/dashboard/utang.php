@@ -10,7 +10,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <b>Note!</b> &nbsp; &nbsp; 
-            Jika pengingat <b>Aktif</b> maka dengan otomatis Anda akan menerima <b>Email</b> pengingat utang sesuai dengan <b>Tanggal Tempo</b> pada jam <b>6.00 am</b>. 
+            Jika pengingat <b>Aktif</b> dan status <b>Belum Lunas</b> maka dengan otomatis Anda akan menerima <b>Email</b> pengingat utang sesuai dengan <b>Tanggal Tempo</b> pada jam <b>6.00 am</b>. 
         </div>
         
     </div>

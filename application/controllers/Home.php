@@ -139,4 +139,71 @@ class Home extends CI_Controller {
 	public function reset_password(){       
         $this->load->view('home/reset_password.php');
 	}
+	
+	public function test(){
+        $dataUtang = $this->m_home->getAllUtang();
+		$date = date("Y-m-d");
+
+		foreach($dataUtang as $val){
+            $email = $val->email;
+            $kreditur = $val->kreditur;
+            $tanggal_tempo = $val->tanggal_tempo;
+
+            if($email != null && $tanggal_tempo == $date){
+                $config = [
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://moneybook.my.id',
+                    'smtp_port' => 465,
+                    'smtp_user' => 'cs@moneybook.my.id',
+                    'smtp_pass' => 'moneybook123',
+                    'mailtype' => 'html', 
+                    'charset'   => 'iso-8859-1'
+                ];
+                $this->load->library('email', $config);
+                $this->email->set_newline("\r\n");
+                $this->email->from('cs@moneybook.my.id', 'MoneyBook Team');
+                $this->email->to($email);
+                $this->email->subject('Test Bro');
+                $this->email->message($kreditur);
+        
+                if($this->email->send()){
+                    echo("Success");
+                }else{
+                    echo("Faild");
+                }
+            }
+        }
+		// echo json_encode($dataUtang);
+	}
+    
+    public function email(){
+        $email = "rizkista@gmail.com";
+        $data = [
+            "email" => $email,
+            "url" => base_url('home/aktivasiakun?email='.$email)
+        ];
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://moneybook.my.id',
+            'smtp_port' => 465,
+            'smtp_user' => 'cs@moneybook.my.id',
+            'smtp_pass' => 'moneybook123',
+            'mailtype' => 'html', 
+            'charset'   => 'iso-8859-1'
+        ];
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+        $this->email->set_mailtype("html");
+        $this->email->set_header('MIME-Version', '1.0; charset=utf-8');
+        $this->email->from('cs@moneybook.my.id', 'MoneyBook Team');
+        $this->email->to($email);
+        $this->email->subject('Test Bro');
+        $this->email->message($this->load->view('aktivasi', $data, true));
+
+        if($this->email->send()){
+            echo("Success");
+        }else{
+            echo("Faild");
+        }
+	}
 }
