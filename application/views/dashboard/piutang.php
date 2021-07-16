@@ -40,7 +40,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Aksi</th>
-                                                <th>Status</th>
                                                 <th>Debitur</th>
                                                 <th>Piutang Awal</th>
                                                 <th>Jumlah Bayar</th>
@@ -48,6 +47,8 @@
                                                 <th>Keterangan</th>
                                                 <th>Tanggal Piutang</th>
                                                 <th>Tanggal Tempo</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -115,34 +116,40 @@
                     <div class="card-group">
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Debitur : <span class="text-danger">*</span> </label>
-                                <select class="form-control" name="debitur" id="debitur">
-                                    <option value="">Pilih Debitur</option>
-                                    <?php foreach ($debitur as $list) { ?>
-                                        <option value="<?= $list->id_debitur ?>"><?= $list->nama_debitur ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Piutang Awal : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" data-type="currency" style="text-align: right;" name="piutang_awal" id="piutang_awal" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Jumlah Bayar : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" data-type="currency" style="text-align: right;" name="jumlah_bayar" id="jumlah_bayar" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tanggal Piutang : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="tanggal_piutang" id="tanggal_piutang" style="cursor:pointer; background: #fff !important;" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Tanggal Tempo : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="tanggal_tempo" id="tanggal_tempo" style="cursor:pointer; background: #fff !important;" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Keterangan : <span class="text-danger">*</span> </label>
-                                <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Masukan Keterangan">
+                            <div class="row">
+                                <div class="col-sm-6">        
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Debitur : <span class="text-danger">*</span> </label>
+                                        <select class="form-control" name="debitur" id="debitur">
+                                            <option value="">Pilih Debitur</option>
+                                            <?php foreach ($debitur as $list) { ?>
+                                                <option value="<?= $list->id_debitur ?>"><?= $list->nama_debitur ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Piutang Awal : <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" data-type="currency" style="text-align: right;" name="piutang_awal" id="piutang_awal" placeholder="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Jumlah Bayar : <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" data-type="currency" style="text-align: right;" name="jumlah_bayar" id="jumlah_bayar" placeholder="0">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Tanggal Piutang : <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" name="tanggal_piutang" id="tanggal_piutang" style="cursor:pointer; background: #fff !important;" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Tanggal Tempo : <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" name="tanggal_tempo" id="tanggal_tempo" style="cursor:pointer; background: #fff !important;" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Keterangan : <span class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Masukan Keterangan">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,41 +241,3 @@
         </form>
     </div>
 </div>
-
-<!-- <div class="row mr-3 ml-3 mb-5" style="border-radius: 2px; background-color: rgba(199,199,199,.2);">
-    <div class="col-md-3 mt-2 mb-2">
-        <div class="form-group p-1" style="border: 1px solid #e8e8e8; border-radius: 4px; background-color: #fff;">
-            <div class="input-group" >
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="background-color: #fff; border-color: #fff !important;">Debitur : </span>
-                </div>
-                <select class="form-control form-control-sm" name="debitur_bayar" id="debitur_bayar" >
-                    <option value="">Pilih Debitur</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mt-2 mb-2">
-        <div class="form-group p-1" style="border: 1px solid #e8e8e8; border-radius: 4px; background-color: #fff;">
-            <div class="input-group" >
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="background-color: #fff; border-color: #fff !important;">Nominal : </span>
-                </div>
-                <input type="text" class="form-control form-control-sm" data-type="currency" style="text-align: right;" name="nominal_bayar" id="nominal_bayar" placeholder="0">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mt-2 mb-2">
-        <div class="form-group p-1" style="border: 1px solid #e8e8e8; border-radius: 4px; background-color: #fff;">
-            <div class="input-group" >
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="background-color: #fff; border-color: #fff !important;">Tanggal : </span>
-                </div>
-                <input type="text" class="form-control form-control-sm" name="tanggal_bayar" id="tanggal_bayar" style="cursor:pointer; background: #fff !important;" readonly>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mt-2 mb-2">
-        <center><button class="btn btn-warning" name="bayar" id="tambah_pemasukan">Bayar</button></center>
-    </div>        
-</div> -->

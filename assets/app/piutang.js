@@ -280,7 +280,7 @@
 				className: "btn btn-secondary wid-max-select text-white",
 				text: '<i class="fas fa-file-pdf mr-2"></i>PDF',
 				exportOptions: {
-					columns: [0, 3, 4, 5, 6, 7, 8, 9, 2],
+					columns: [0, 2, 3, 4, 5, 6, 7, 8, 9],
 				},
 				messageTop: "List Laporan Piutang",
 			},
@@ -289,7 +289,7 @@
 				className: "btn btn-secondary wid-max-select text-white",
 				text: '<i class="fas fa-print mr-2"></i>Print',
 				exportOptions: {
-					columns: [0, 3, 4, 5, 6, 7, 8, 9, 2],
+					columns: [0, 2, 3, 4, 5, 6, 7, 8, 9],
 				},
 				messageTop: "List Laporan Piutang",
 			},
@@ -304,8 +304,7 @@
 		bAutoWidth: false,
 		columns: [
 			{ data: "No" },
-			{
-				data: "Aksi",
+			{ data: "Aksi",
 				render: function (data, type, row, meta) {
 					return type === "display" ?
                     '<div class="btn-group" role="group">'
@@ -317,8 +316,14 @@
                     +'</div>'
                     +'</div>':
                     data;
-				},
-			},
+			}},
+			{ data: "Debitur" },
+			{ data: "Piutang_Awal" },
+			{ data: "Jumlah_Bayar" },
+			{ data: "Sisa_Piutang" },
+			{ data: "Keterangan" },
+			{ data: "Tanggal_Piutang" },
+			{ data: "Tanggal_Tempo" },
             { data: "Status",render : function ( data, type, row, meta ) {
                 let html = '';
                 if(data =='Lunas'){
@@ -330,13 +335,6 @@
                  ''+html:
                   data;
             }},
-			{ data: "Debitur" },
-			{ data: "Piutang_Awal" },
-			{ data: "Jumlah_Bayar" },
-			{ data: "Sisa_Piutang" },
-			{ data: "Keterangan" },
-			{ data: "Tanggal_Piutang" },
-			{ data: "Tanggal_Tempo" },
 			{ data: "id_debitur" },
 		],
 	});

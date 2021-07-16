@@ -110,10 +110,26 @@ class M_dashboard extends CI_Model {
     public function cek_total_pembayaran_piutang($id){
         $query = $this->db
         ->from('pembayaran_piutang')
-        ->where('id_pembayaran_piutang',$id)
+        ->where('id_piutang',$id)
         ->select('sum(bayar_piutang) as total_bayar_piutang')
-        ->get()->result();
+        ->get()->row_array();
         return $query;
+    }
+
+    public function utang_get($id){
+        return $this->db->get_where('utang', ['id_pengguna' => $id])->result();
+    }
+
+    public function utang_post($data){
+		$this->db->insert('utang', $data);
+	}
+    
+    public function utang_edit($id,$data){
+        $this->db->where('id_utang', $id)->update('utang', $data); 
+    } 
+
+    public function utang_delete($id){
+        return $this->db->delete('utang', array('id_utang' => $id)); 
     }
 
     public function piutang_get($id){

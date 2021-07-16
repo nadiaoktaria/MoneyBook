@@ -430,6 +430,85 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function get_utang(){
+		$pengguna =  $this->m_dashboard->get_data_pengguna();
+		$utang = $this->m_dashboard->utang_get($pengguna['id_pengguna']);
+
+		$data = [];
+		$no = 0;
+		foreach ($utang as $list) {
+			$no++;
+			$row = [];
+			$row['No'] = $no;
+			$row['Kreditur'] = $list->kreditur;
+			$row['Jumlah_Utang'] = 'Rp' . number_format($list->jumlah_utang, 0, "", ".");
+			$row['Jumlah_Bayar'] = 'Rp' . number_format($list->jumlah_bayar, 0, "", ".");
+			$row['Tanggal_Utang'] = $list->tanggal_utang;
+			$row['Tanggal_Tempo'] = $list->tanggal_tempo;
+			$row['Keterangan'] = $list->keterangan;
+			$row['Status'] = $list->status_utang;
+			$row['Pengingat'] = $list->pengingat;
+			$row['Aksi'] = $list->id_utang;
+			$data[] = $row;
+			
+		}
+
+		$output = [ "data" => $data ];
+		echo json_encode($output);
+	}
+
+	public function tambah_utang(){
+		if(!empty($_POST['kreditur']) && !empty($_POST['jumlah_utang']) && !empty($_POST['jumlah_bayar']) 
+		&& !empty($_POST['tanggal_utang']) && !empty($_POST['tanggal_tempo']) && !empty($_POST['keterangan'])
+		&& !empty($_POST['status_utang']) && !empty($_POST['pengingat'])){
+			$pengguna =  $this->m_dashboard->get_data_pengguna();
+
+			$data = [
+				'id_pengguna' => $pengguna['id_pengguna'],
+				'kreditur' => $_POST['kreditur'],
+				'jumlah_utang' => $_POST['jumlah_utang'],
+				'jumlah_bayar' => $_POST['jumlah_bayar'],
+				'tanggal_utang' => $_POST['tanggal_utang'],
+				'tanggal_tempo' => $_POST['tanggal_tempo'],
+				'keterangan' => $_POST['keterangan'],
+				'status_utang' => $_POST['status_utang'],
+				'pengingat' => $_POST['pengingat'],
+			];
+
+			$this->m_dashboard->utang_post($data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function edit_utang(){    
+		if(!empty($_POST['kreditur']) && !empty($_POST['jumlah_utang']) && !empty($_POST['jumlah_bayar']) 
+		&& !empty($_POST['tanggal_utang']) && !empty($_POST['tanggal_tempo']) && !empty($_POST['keterangan'])
+		&& !empty($_POST['status_utang']) && !empty($_POST['pengingat'])){
+			$data = [
+				'kreditur' => $_POST['kreditur'],
+				'jumlah_utang' => $_POST['jumlah_utang'],
+				'jumlah_bayar' => $_POST['jumlah_bayar'],
+				'tanggal_utang' => $_POST['tanggal_utang'],
+				'tanggal_tempo' => $_POST['tanggal_tempo'],
+				'keterangan' => $_POST['keterangan'],
+				'status_utang' => $_POST['status_utang'],
+				'pengingat' => $_POST['pengingat'],
+			];
+			$this->m_dashboard->utang_edit($_POST['id_utang'],$data);
+			echo "success";
+			exit();
+		}
+	}
+
+	public function hapus_utang(){
+		if(!empty($_POST['id'])){
+			$this->m_dashboard->utang_delete($_POST['id']);
+			echo "success";
+			exit();
+		}
+	}
+
 	public function get_debitur(){
 		$pengguna =  $this->m_dashboard->get_data_pengguna();
 		$debitur = $this->m_dashboard->debitur_get($pengguna['id_pengguna']);
@@ -496,19 +575,19 @@ class Dashboard extends CI_Controller {
 
 		$data = [];
 		$no = 0;
-		$sisa = 0;
-		$status = "";
-		foreach ($piutang as $list) {
+		foreach($piutang as $list) {
 			$cek = $this->m_dashboard->cek_total_pembayaran_piutang($list->id_piutang);
-			// $sisa = intval(($list->total_piutang)-($cek['total_bayar_piutang']));
-			// if($sisa<=0){
-			// 	// $this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Lunas']);
-			// 	$status = 'Lunas';
-			// }else{
-			// 	// $this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Belum Lunas']);
-			// 	$status = 'Belum Lunas';
-			// }
-			
+			$sisa = intval(($list->total_piutang)-($cek['total_bayar_piutang']));
+			$status = $list->status_piutang;
+
+			if($sisa<=0 && $list->status_piutang=="Belum Lunas"){
+				$this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Lunas']);
+				$status = "Lunas";
+			}else if($sisa>0 && $list->status_piutang=="Lunas"){
+				$this->m_dashboard->piutang_edit($list->id_piutang,['status_piutang'=>'Belum Lunas']);
+				$status = "Belum Lunas";
+			}
+
 			$no++;
 			$row = [];
 			$row['No'] = $no;
@@ -526,7 +605,7 @@ class Dashboard extends CI_Controller {
 		}
 
 		$output = [ "data" => $data ];
-		echo json_encode($cek);
+		echo json_encode($output);
 	}
 
 	public function tambah_piutang(){
