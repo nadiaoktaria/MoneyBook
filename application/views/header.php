@@ -60,7 +60,7 @@
 							<p id="realtime"></p>
 						</li>
 						<li class="nav-item dropdown hidden-caret">
-							<a class="nav-link dropdown-toggle" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<!-- <a class="nav-link dropdown-toggle" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell"></i>
 								<span class="notification">1</span>
 							</a>
@@ -80,7 +80,7 @@
 										</div>
 									</div>
 								</li>
-							</ul>
+							</ul> -->
 						</li>
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">

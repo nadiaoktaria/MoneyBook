@@ -56,7 +56,7 @@
 									<input id="no_hp" type="text" class="form-control" name="no_hp" required>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group" style="display: none;">
 									<label for="jenis">Jenis Pembukuan </label>
 									<select class="form-control" name="jenis" id="jenis" >
 										<option value="Personal">Personal</option>
