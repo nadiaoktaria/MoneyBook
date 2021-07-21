@@ -39,9 +39,13 @@
 	<script src="<?= base_url() ?>assets/js/realtime.js"></script>
 	<script src="<?= base_url() ?>assets/js/atlantis.min.js"></script>
 
+	<?=$this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? $dashboard = True : $dashboard = False ?>
+	<?php if($dashboard){ ?>	
+		<script src="<?= base_url() ?>assets/app/dashboard.js"></script>
+	<?php } ?>
+	
 	<!-- App -->
 	<script src="<?= base_url() ?>assets/app/profile.js"></script>
-	<script src="<?= base_url() ?>assets/app/dashboard.js"></script>
 	<script src="<?= base_url() ?>assets/app/kategori_pemasukan.js"></script>
 	<script src="<?= base_url() ?>assets/app/kategori_pengeluaran.js"></script>
 	<script src="<?= base_url() ?>assets/app/transaksi_pemasukan.js"></script>

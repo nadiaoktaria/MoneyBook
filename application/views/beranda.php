@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MoenyBook</title>
+  <title>MoenyBook - Pembukuan Keuangan Bulanan</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,11 +37,11 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="index.html">Home</a></li>
+          <li class="menu-active"><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#team">Team</a></li>
-          <!-- <li><a href="#contact">Kontak</a></li> -->
+          <li><a href="#contact">Lokasi</a></li>
           <li><a href="<?= base_url('login') ?>">Login</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
@@ -89,29 +89,29 @@
         <div class="row">
           <div class="col-lg-3 col-md-6" data-aos="zoom-in">
             <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-desktop"></i></a></div>
-              <h4 class="title"><a href="">Aman</a></h4>
+              <div class="icon"><i class="fa fa-desktop"></i></div>
+              <h4 class="title">Aman</h4>
               <p class="description">Data Keuangan aman tersimpan dan terenkripsi.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="zoom-in">
             <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-bar-chart"></i></a></div>
-              <h4 class="title"><a href="">Akurat</a></h4>
+              <div class="icon"><i class="fa fa-bar-chart"></i></div>
+              <h4 class="title">Akurat</h4>
               <p class="description">Standar laporan keuangan akuntansi.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="zoom-in">
             <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-paper-plane"></i></a></div>
-              <h4 class="title"><a href="">Mudah</a></h4>
+              <div class="icon"><i class="fa fa-paper-plane"></i></div>
+              <h4 class="title">Mudah</h4>
               <p class="description">Fitur yang memudahkan kontrol keuangan bisnis.</p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="zoom-in">
             <div class="box">
-              <div class="icon"><a href=""><i class="fa fa-shopping-bag"></i></a></div>
-              <h4 class="title"><a href="">Hemat</a></h4>
+              <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+              <h4 class="title">Hemat</h4>
               <p class="description">Bebas biaya kebutuhan server konvensional</p>
             </div>
           </div>
@@ -204,17 +204,17 @@
     </section><!-- End Team Section -->
 
     <!-- ======= Contact Section ======= -->
-    <!-- <section id="contact">
+    <section id="contact">
       <div class="container">
         <div class="section-header">
-          <h3 class="section-title">Contact</h3>
-          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+          <h3 class="section-title">Lokasi</h3>
+          <p class="section-description">Kami belum memiliki kantor dan masih dalam tahap pencarian investor agar website ini dapat berkembang</p>
         </div>
       </div>
 
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63245.97077191126!2d110.33982534474266!3d-7.803249010409012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sYogyakarta%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1626852588257!5m2!1sid!2sid" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
 
-      <div class="container mt-5">
+      <!-- <div class="container mt-5">
         <div class="row justify-content-center">
           <div class="col-lg-3 col-md-4">
             <div class="info">
@@ -268,9 +268,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </section> -->
-    <!-- End Contact Section -->
+      </div> -->
+    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 
@@ -284,7 +283,7 @@
 
     <div class="container">
       <div class="copyright">
-        Copyright © 2021<a href="<?= base_url('beranda') ?>"> MoneyBook</a>
+        Copyright © 2021<a href="#hero"> MoneyBook</a>
       </div>
     </div>
   </footer><!-- End Footer -->
